@@ -1426,6 +1426,62 @@ footer {
   border-radius: 50%;
 }
 
+/* Keep the navigation, resources, and footer on the light page canvas. */
+.site-nav {
+  color: var(--ink);
+  background: rgba(251, 252, 250, 0.96);
+  border-bottom-color: var(--line);
+}
+
+.nav-links a,
+.nav-paper {
+  color: var(--ink-soft);
+}
+
+.nav-links a:hover,
+.nav-paper:hover {
+  color: var(--ink);
+}
+
+.resources-section {
+  color: var(--ink);
+  background: var(--paper-bright);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.resource-links {
+  border-top-color: var(--line);
+}
+
+.resource-links a {
+  border-bottom-color: var(--line);
+}
+
+.resource-links a:hover {
+  color: var(--mint-deep);
+  background: #f0f6f3;
+}
+
+.resource-links small {
+  color: var(--ink-soft);
+}
+
+footer {
+  color: var(--ink-soft);
+  background: var(--paper);
+  border-top-color: var(--line);
+}
+
+.footer-inner .brand {
+  color: var(--ink);
+}
+
+.footer-inner > a {
+  color: var(--ink-soft);
+  border-color: var(--line);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0.01ms !important; }

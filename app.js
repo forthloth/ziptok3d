@@ -37,10 +37,11 @@ const results = {
   ],
 };
 
-const refinementMetrics = {
-  1: { iou: 16.85, cd: 0.0328, f1: 69.72, file: "assets/refine-l1.mp4" },
-  3: { iou: 52.49, cd: 0.0127, f1: 98.98, file: "assets/refine-l3.mp4" },
-  5: { iou: 52.74, cd: 0.0127, f1: 98.94, file: "assets/refine-l5.mp4" },
+const refinementSamples = {
+  bridge: { label: "Bridge", file: "assets/sample-bridge.mp4" },
+  building: { label: "Building", file: "assets/sample-building.mp4" },
+  arch: { label: "Arch", file: "assets/sample-arch.mp4" },
+  sculpture: { label: "Sculpture", file: "assets/sample-sculpture.mp4" },
 };
 
 const gallerySources = {
@@ -234,19 +235,18 @@ function renderResults(dataset) {
   });
 }
 
-function setRefinementDepth(depth) {
-  const data = refinementMetrics[depth];
-  document.querySelectorAll("[data-depth]").forEach(button => {
-    button.setAttribute("aria-pressed", String(Number(button.dataset.depth) === depth));
+function setRefinementSample(sample) {
+  const data = refinementSamples[sample];
+  document.querySelectorAll("[data-sample]").forEach(button => {
+    button.setAttribute("aria-pressed", String(button.dataset.sample === sample));
   });
-  document.getElementById("refine-iou").textContent = data.iou.toFixed(2);
-  document.getElementById("refine-cd").textContent = data.cd.toFixed(4);
-  document.getElementById("refine-f1").textContent = data.f1.toFixed(2);
-  document.getElementById("refine-video-label").textContent = `K = 2, L = ${depth}`;
+  document.getElementById("refine-sample-name").textContent = data.label;
+  document.getElementById("refine-sample-config").textContent = "K = 4, L = 5";
+  document.getElementById("refine-video-label").textContent = `${data.label} · K = 4, L = 5`;
   const video = document.getElementById("refinement-video");
   const previousTime = video.currentTime || 0;
   video.src = data.file;
-  video.setAttribute("aria-label", `Bridge reconstruction at ${depth} refinement ${depth === 1 ? "pass" : "passes"}`);
+  video.setAttribute("aria-label", `${data.label} reconstruction comparison`);
   video.addEventListener("loadedmetadata", () => {
     video.currentTime = Math.min(previousTime, Math.max(0, video.duration - 0.1));
     video.play().catch(() => {});
@@ -290,8 +290,8 @@ function bindControls() {
   document.querySelectorAll("[data-result-dataset]").forEach(button => {
     button.addEventListener("click", () => renderResults(button.dataset.resultDataset));
   });
-  document.querySelectorAll("[data-depth]").forEach(button => {
-    button.addEventListener("click", () => setRefinementDepth(Number(button.dataset.depth)));
+  document.querySelectorAll("[data-sample]").forEach(button => {
+    button.addEventListener("click", () => setRefinementSample(button.dataset.sample));
   });
   document.querySelectorAll("[data-gallery]").forEach(button => {
     button.addEventListener("click", () => setGallery(button.dataset.gallery));
@@ -301,6 +301,7 @@ function bindControls() {
 async function initialize() {
   bindControls();
   renderResults("ShapeNet");
+  setRefinementSample("bridge");
   setGallery("shapenet");
   if (window.lucide) window.lucide.createIcons();
 

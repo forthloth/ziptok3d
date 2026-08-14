@@ -37,24 +37,142 @@ const results = {
   ],
 };
 
-const refinementSamples = {
-  bridge: { label: "Bridge", file: "assets/sample-bridge.mp4" },
-  building: { label: "Building", file: "assets/sample-building.mp4" },
-  arch: { label: "Arch", file: "assets/sample-arch.mp4" },
-  sculpture: { label: "Sculpture", file: "assets/sample-sculpture.mp4" },
+const refinementTrajectories = {
+  lamp: {
+    label: "Lamp",
+    dataset: "ShapeNet",
+    gt: "assets/traj_shapenet_lamp_gt.png",
+    l1: "assets/traj_shapenet_lamp_l1.png",
+    l3: "assets/traj_shapenet_lamp_l3.png",
+    l5: "assets/traj_shapenet_lamp_l5.png",
+  },
+  bridge: {
+    label: "Bridge",
+    dataset: "TRELLIS",
+    gt: "assets/traj_trellis_bridge_gt.png",
+    l1: "assets/traj_trellis_bridge_l1.png",
+    l3: "assets/traj_trellis_bridge_l3.png",
+    l5: "assets/traj_trellis_bridge_l5.png",
+  },
+  frame: {
+    label: "Frame building",
+    dataset: "TRELLIS",
+    gt: "assets/traj_trellis_frame_gt.png",
+    l1: "assets/traj_trellis_frame_l1.png",
+    l3: "assets/traj_trellis_frame_l3.png",
+    l5: "assets/traj_trellis_frame_l5.png",
+  },
+  village: {
+    label: "Village",
+    dataset: "TRELLIS",
+    gt: "assets/traj_trellis_village_gt.png",
+    l1: "assets/traj_trellis_village_l1.png",
+    l3: "assets/traj_trellis_village_l3.png",
+    l5: "assets/traj_trellis_village_l5.png",
+  },
 };
 
-const gallerySources = {
-  shapenet: {
-    gt: "assets/shapenet-gt.mp4",
-    codvae: "assets/shapenet-codvae.mp4",
-    ziptok: "assets/shapenet-ziptok.mp4",
-  },
-  trellis: {
-    gt: "assets/trellis-gt.mp4",
-    codvae: "assets/trellis-codvae.mp4",
-    ziptok: "assets/trellis-ziptok.mp4",
-  },
+const reconstructionSamples = {
+  shapenet: [
+    {
+      label: "Chair",
+      kind: "comparison",
+      config: "K = 1, L = 2",
+      gt: "assets/posthoc_shapenet_chair_gt.png",
+      codvae: "assets/posthoc_shapenet_chair_codvae32.png",
+      ziptok: "assets/posthoc_shapenet_chair_k1_l2.png",
+    },
+    {
+      label: "Piano",
+      kind: "comparison",
+      config: "K = 1, L = 2",
+      gt: "assets/posthoc_shapenet_piano_gt.png",
+      codvae: "assets/posthoc_shapenet_piano_codvae32.png",
+      ziptok: "assets/posthoc_shapenet_piano_k1_l2.png",
+    },
+    {
+      label: "Additional example A",
+      kind: "comparison",
+      config: "K = 1, L = 5",
+      gt: "assets/shapenet_3889631e42a84b0f51f77a6d7299806_gt.png",
+      codvae: "assets/shapenet_3889631e42a84b0f51f77a6d7299806_codvae32.png",
+      ziptok: "assets/shapenet_3889631e42a84b0f51f77a6d7299806_ours_k1_l5.png",
+    },
+    {
+      label: "Additional example B",
+      kind: "comparison",
+      config: "K = 1, L = 5",
+      gt: "assets/shapenet_862d685006637dfef630324ef3baae90_gt.png",
+      codvae: "assets/shapenet_862d685006637dfef630324ef3baae90_codvae32.png",
+      ziptok: "assets/shapenet_862d685006637dfef630324ef3baae90_ours_k1_l5.png",
+    },
+  ],
+  trellis: [
+    {
+      label: "Castle",
+      kind: "comparison",
+      config: "K = 1, L = 3",
+      gt: "assets/posthoc_trellis_castle_gt.png",
+      codvae: "assets/posthoc_trellis_castle_codvae32.png",
+      ziptok: "assets/posthoc_trellis_castle_k1_l3.png",
+    },
+    {
+      label: "Cityscape",
+      kind: "comparison",
+      config: "K = 1, L = 3",
+      gt: "assets/posthoc_trellis_cityscape_gt.png",
+      codvae: "assets/posthoc_trellis_cityscape_codvae32.png",
+      ziptok: "assets/posthoc_trellis_cityscape_k1_l3.png",
+    },
+    {
+      label: "Village",
+      kind: "comparison",
+      config: "K = 1, L = 3",
+      gt: "assets/posthoc_trellis_village_gt.png",
+      codvae: "assets/posthoc_trellis_village_codvae32.png",
+      ziptok: "assets/posthoc_trellis_village_k1_l3.png",
+    },
+    {
+      label: "Additional example A",
+      kind: "comparison",
+      config: "K = 1, L = 5",
+      gt: "assets/trellis_6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352_gt.png",
+      codvae: "assets/trellis_6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352_codvae32.png",
+      ziptok: "assets/trellis_6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352_ours_k1_l5.png",
+    },
+    {
+      label: "Additional example B",
+      kind: "comparison",
+      config: "K = 1, L = 5",
+      gt: "assets/trellis_9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96_gt.png",
+      codvae: "assets/trellis_9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96_codvae32.png",
+      ziptok: "assets/trellis_9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96_ours_k1_l5.png",
+    },
+    {
+      label: "Bridge",
+      kind: "video",
+      config: "K = 4, L = 5",
+      file: "assets/sample-bridge.mp4",
+    },
+    {
+      label: "Building",
+      kind: "video",
+      config: "K = 4, L = 5",
+      file: "assets/sample-building.mp4",
+    },
+    {
+      label: "Arch",
+      kind: "video",
+      config: "K = 4, L = 5",
+      file: "assets/sample-arch.mp4",
+    },
+    {
+      label: "Sculpture",
+      kind: "video",
+      config: "K = 4, L = 5",
+      file: "assets/sample-sculpture.mp4",
+    },
+  ],
 };
 
 function parseCsv(text) {
@@ -235,33 +353,77 @@ function renderResults(dataset) {
   });
 }
 
-function setRefinementSample(sample) {
-  const data = refinementSamples[sample];
-  document.querySelectorAll("[data-sample]").forEach(button => {
-    button.setAttribute("aria-pressed", String(button.dataset.sample === sample));
+function setRefinementTrajectory(sample) {
+  const data = refinementTrajectories[sample];
+  document.querySelectorAll("[data-trajectory]").forEach(button => {
+    button.setAttribute("aria-pressed", String(button.dataset.trajectory === sample));
   });
   document.getElementById("refine-sample-name").textContent = data.label;
-  document.getElementById("refine-sample-config").textContent = "K = 4, L = 5";
-  document.getElementById("refine-video-label").textContent = `${data.label} · K = 4, L = 5`;
-  const video = document.getElementById("refinement-video");
-  const previousTime = video.currentTime || 0;
-  video.src = data.file;
-  video.setAttribute("aria-label", `${data.label} reconstruction comparison`);
-  video.addEventListener("loadedmetadata", () => {
-    video.currentTime = Math.min(previousTime, Math.max(0, video.duration - 0.1));
-    video.play().catch(() => {});
-  }, { once: true });
+  document.getElementById("refine-sample-config").textContent = "Shared block, three depths";
+  document.getElementById("refine-trajectory-dataset").textContent = data.dataset;
+  document.getElementById("refine-trajectory-name").textContent = data.label;
+  ["gt", "l1", "l3", "l5"].forEach(depth => {
+    const image = document.getElementById(`trajectory-${depth}`);
+    image.src = data[depth];
+    image.alt = `${data.label} ${depth === "gt" ? "reference" : `reconstruction at ${depth.slice(1)} refinement passes`}`;
+  });
+}
+
+function renderReconstructionSample(sample) {
+  const article = document.createElement("article");
+  article.className = `reconstruction-sample ${sample.kind === "video" ? "reconstruction-video-sample" : ""}`;
+
+  const header = document.createElement("header");
+  const title = document.createElement("strong");
+  title.textContent = sample.label;
+  const config = document.createElement("span");
+  config.textContent = sample.config;
+  header.append(title, config);
+  article.appendChild(header);
+
+  if (sample.kind === "video") {
+    const video = document.createElement("video");
+    video.src = sample.file;
+    video.autoplay = true;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = "metadata";
+    video.setAttribute("aria-label", `${sample.label} reconstruction comparison`);
+    article.appendChild(video);
+  } else {
+    const comparison = document.createElement("div");
+    comparison.className = "sample-comparison-grid";
+    [
+      ["Ground truth", sample.gt],
+      ["COD-VAE, K = 32", sample.codvae],
+      ["ZipTok3D", sample.ziptok],
+    ].forEach(([label, source]) => {
+      const figure = document.createElement("figure");
+      const image = document.createElement("img");
+      image.src = source;
+      image.alt = `${sample.label}, ${label}`;
+      image.loading = "lazy";
+      const caption = document.createElement("figcaption");
+      caption.textContent = label;
+      figure.append(image, caption);
+      comparison.appendChild(figure);
+    });
+    article.appendChild(comparison);
+  }
+  return article;
 }
 
 function setGallery(dataset) {
   document.querySelectorAll("[data-gallery]").forEach(button => {
     button.setAttribute("aria-pressed", String(button.dataset.gallery === dataset));
   });
-  document.querySelectorAll("#video-grid video").forEach(video => {
-    video.src = gallerySources[dataset][video.dataset.role];
-    video.load();
-    video.play().catch(() => {});
-  });
+  const gallery = document.getElementById("reconstruction-gallery");
+  gallery.replaceChildren(...reconstructionSamples[dataset].map(renderReconstructionSample));
+  document.getElementById("gallery-summary").textContent = dataset === "shapenet"
+    ? "Four ShapeNet examples with matched ground truth, COD-VAE-32, and ZipTok3D reconstructions."
+    : "Nine TRELLIS examples: five matched comparisons and four rotating sample sheets.";
+  gallery.querySelectorAll("video").forEach(video => video.play().catch(() => {}));
 }
 
 function bindControls() {
@@ -290,8 +452,8 @@ function bindControls() {
   document.querySelectorAll("[data-result-dataset]").forEach(button => {
     button.addEventListener("click", () => renderResults(button.dataset.resultDataset));
   });
-  document.querySelectorAll("[data-sample]").forEach(button => {
-    button.addEventListener("click", () => setRefinementSample(button.dataset.sample));
+  document.querySelectorAll("[data-trajectory]").forEach(button => {
+    button.addEventListener("click", () => setRefinementTrajectory(button.dataset.trajectory));
   });
   document.querySelectorAll("[data-gallery]").forEach(button => {
     button.addEventListener("click", () => setGallery(button.dataset.gallery));
@@ -301,7 +463,7 @@ function bindControls() {
 async function initialize() {
   bindControls();
   renderResults("ShapeNet");
-  setRefinementSample("bridge");
+  setRefinementTrajectory("lamp");
   setGallery("shapenet");
   if (window.lucide) window.lucide.createIcons();
 

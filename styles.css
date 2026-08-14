@@ -1343,3 +1343,100 @@ footer {
   .generation-measures div { padding: 14px; }
   .resources-layout h2 { font-size: 32px; }
 }
+
+
+/* Keep the method overview on the same light canvas as the page. */
+.method-section {
+  color: var(--ink);
+  background: var(--paper-bright);
+  border-bottom-color: var(--line);
+}
+
+.method-section .section-heading > p,
+.method-section .stage-label small,
+.method-section .stage-note,
+.method-section .selection-source span,
+.method-section .selection-split b {
+  color: var(--ink-soft);
+}
+
+.method-section .section-index {
+  color: var(--mint-deep);
+}
+
+.method-section h2 {
+  color: var(--ink);
+}
+
+.method-tool {
+  color: var(--ink);
+}
+
+.method-figure {
+  background: var(--paper-bright);
+  border-color: var(--line);
+}
+
+.flow-stage {
+  background: #ffffff;
+  border-color: var(--line);
+}
+
+.flow-arrow {
+  color: var(--ink-soft);
+}
+
+.method-media {
+  border-color: var(--line);
+  background: #ffffff;
+}
+
+.token-cell {
+  background: rgba(11, 19, 19, 0.08);
+}
+
+.physical-prefix {
+  color: var(--mint-deep);
+  border-top-color: var(--line);
+}
+
+.selection-diagram > svg {
+  color: var(--ink-soft);
+}
+
+.selection-split span {
+  border-color: var(--line);
+  background: #f3f6f2;
+}
+
+.selection-split span:first-child {
+  background: #dceee7;
+}
+
+.selection-split span:last-child {
+  color: var(--ink-soft);
+}
+
+.triplane-split {
+  border-color: var(--line);
+}
+
+.bypass-tokens {
+  color: var(--ink-soft);
+  background: #f0f3f0;
+}
+
+.pass-dot {
+  color: var(--ink-soft);
+  background: #f3f6f2;
+  border-color: var(--line);
+}
+
+.pass-dot.active {
+  color: var(--white);
+}
+
+.occupancy-output {
+  border-color: var(--line);
+  background: #ffffff;
+}

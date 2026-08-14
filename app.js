@@ -15,6 +15,11 @@ const explorerState = {
 };
 
 const metricData = { ShapeNet: {}, TRELLIS: {} };
+const ASSET_VERSION = "gallery3";
+
+function assetUrl(path) {
+  return `${path}?v=${ASSET_VERSION}`;
+}
 
 const results = {
   ShapeNet: [
@@ -364,7 +369,7 @@ function setRefinementTrajectory(sample) {
   document.getElementById("refine-trajectory-name").textContent = data.label;
   ["gt", "l1", "l3", "l5"].forEach(depth => {
     const image = document.getElementById(`trajectory-${depth}`);
-    image.src = data[depth];
+    image.src = assetUrl(data[depth]);
     image.alt = `${data.label} ${depth === "gt" ? "reference" : `reconstruction at ${depth.slice(1)} refinement passes`}`;
   });
 }
@@ -383,7 +388,7 @@ function renderReconstructionSample(sample) {
 
   if (sample.kind === "video") {
     const video = document.createElement("video");
-    video.src = sample.file;
+    video.src = assetUrl(sample.file);
     video.autoplay = true;
     video.muted = true;
     video.loop = true;
@@ -401,7 +406,7 @@ function renderReconstructionSample(sample) {
     ].forEach(([label, source]) => {
       const figure = document.createElement("figure");
       const image = document.createElement("img");
-      image.src = source;
+      image.src = assetUrl(source);
       image.alt = `${sample.label}, ${label}`;
       image.loading = "lazy";
       const caption = document.createElement("figcaption");

@@ -998,8 +998,8 @@ input[type="range"] {
 
 .refinement-layout {
   display: grid;
-  grid-template-columns: 0.72fr 1.28fr;
-  gap: 76px;
+  grid-template-columns: 0.66fr 1.34fr;
+  gap: 56px;
   align-items: center;
 }
 
@@ -1737,9 +1737,10 @@ footer {
 }
 
 .refinement-video-panel {
-  padding: 18px;
+  padding: 22px;
   background: #edf3ef;
   border: 1px solid var(--line);
+  border-radius: 10px;
 }
 
 .refinement-video-heading {
@@ -1764,7 +1765,7 @@ footer {
 .refinement-depth-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  gap: 12px;
 }
 
 .refinement-depth-grid figure {
@@ -1773,7 +1774,7 @@ footer {
   overflow: hidden;
   background: #ffffff;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 7px;
 }
 
 .refinement-depth-grid video {

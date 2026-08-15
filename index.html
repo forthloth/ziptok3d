@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="ZipTok3D: high-fidelity 3D tokenization with compact token prefixes and shared iterative decoding.">
   <title>ZipTok3D - Compact Token Prefixes for High-Fidelity 3D</title>
-<link rel="stylesheet" href="styles.css?v=media1">
+<link rel="stylesheet" href="styles.css?v=media2">
 </head>
 <body>
   <nav class="site-nav" aria-label="Primary navigation">
@@ -140,34 +140,64 @@
     </section>
 
     <section class="refinement-section" id="refinement" aria-labelledby="refinement-title">
-      <div class="section-inner refinement-layout">
-        <div class="refinement-copy">
-          <p class="section-index">04 / Progressive unfolding</p>
-          <h2 id="refinement-title">Shared computation unfolds the prefix</h2>
-          <p>The same bridge is decoded at three depths. Later passes recover structure and refine the surface without adding latent tokens.</p>
-          <div class="refinement-meta">
-            <span>TRELLIS bridge</span>
-            <strong>K = 2, shared decoder</strong>
+      <div class="section-inner">
+        <div class="section-heading refinement-heading">
+          <div>
+            <p class="section-index">04 / Progressive unfolding</p>
+            <h2 id="refinement-title">Shared computation unfolds the prefix</h2>
+          </div>
+          <p>Choose a shape to compare refinement depth and prefix length. The synchronized players keep the geometry aligned while you scrub or pause.</p>
+        </div>
+
+        <div class="refinement-depth-layout">
+          <aside class="refinement-copy">
+            <div class="refinement-video-heading">
+              <span>Refinement-depth sweep</span>
+              <strong>Same shape, three passes</strong>
+            </div>
+            <div class="sample-picker" id="depth-sample-picker" aria-label="Select a refinement-depth sample"></div>
+            <div class="refinement-meta">
+              <span id="depth-sample-name">ShapeNet / 615019f5</span>
+              <strong id="depth-sample-config">K = 2, shared decoder</strong>
+            </div>
+          </aside>
+          <div class="refinement-media refinement-video-panel">
+            <div class="video-toolbar" aria-label="Refinement playback controls">
+              <button type="button" id="depth-prev" class="media-command" title="Previous sample"><i data-lucide="chevron-left" aria-hidden="true"></i><span>Previous</span></button>
+              <button type="button" id="depth-seek-back" class="media-command" title="Seek backward 0.5 seconds"><i data-lucide="rewind" aria-hidden="true"></i><span>Back 0.5s</span></button>
+              <button type="button" id="depth-play-toggle" class="media-command" title="Pause or play all refinement videos"><i data-lucide="pause" aria-hidden="true"></i><span>Pause all</span></button>
+              <button type="button" id="depth-seek-forward" class="media-command" title="Seek forward 0.5 seconds"><i data-lucide="fast-forward" aria-hidden="true"></i><span>Forward 0.5s</span></button>
+              <button type="button" id="depth-next" class="media-command" title="Next sample"><i data-lucide="chevron-right" aria-hidden="true"></i><span>Next</span></button>
+              <span class="video-time" id="depth-time">0.0s / 4.0s</span>
+            </div>
+            <div class="refinement-depth-grid" id="depth-video-grid"></div>
           </div>
         </div>
-        <div class="refinement-media refinement-video-panel">
-          <div class="refinement-video-heading">
-            <span>Progressive refinement</span>
-            <strong>One object, three depths</strong>
+
+        <div class="prefix-sweep-panel">
+          <div class="prefix-sweep-heading">
+            <div>
+              <span>Prefix-length sweep</span>
+              <strong id="prefix-sample-name">ShapeNet / 3889631e</strong>
+            </div>
+            <strong id="prefix-sample-config">L = 5, K = 1, 4</strong>
           </div>
-          <div class="refinement-depth-grid">
-            <figure>
-              <video src="assets/refine-l1.mp4" poster="assets/traj_trellis_bridge_l1.png" autoplay muted loop playsinline preload="metadata" aria-label="Bridge reconstruction after one refinement pass"></video>
-              <figcaption><strong>L = 1</strong><span>coarse structure</span></figcaption>
-            </figure>
-            <figure>
-              <video src="assets/refine-l3.mp4" poster="assets/traj_trellis_bridge_l3.png" autoplay muted loop playsinline preload="metadata" aria-label="Bridge reconstruction after three refinement passes"></video>
-              <figcaption><strong>L = 3</strong><span>structure recovered</span></figcaption>
-            </figure>
-            <figure>
-              <video src="assets/refine-l5.mp4" poster="assets/traj_trellis_bridge_l5.png" autoplay muted loop playsinline preload="metadata" aria-label="Bridge reconstruction after five refinement passes"></video>
-              <figcaption><strong>L = 5</strong><span>surface refined</span></figcaption>
-            </figure>
+          <div class="prefix-sweep-layout">
+            <aside class="prefix-sweep-copy">
+              <p>Every sample below uses the same four-second render protocol. Select a sample to inspect all available prefixes, including the reference and COD-VAE views.</p>
+              <div class="sample-picker" id="prefix-sample-picker" aria-label="Select a prefix-length sample"></div>
+            </aside>
+            <div class="prefix-sweep-media">
+              <div class="video-toolbar" aria-label="Prefix playback controls">
+                <button type="button" id="prefix-prev" class="media-command" title="Previous sample"><i data-lucide="chevron-left" aria-hidden="true"></i><span>Previous</span></button>
+                <button type="button" id="prefix-seek-back" class="media-command" title="Seek backward 0.5 seconds"><i data-lucide="rewind" aria-hidden="true"></i><span>Back 0.5s</span></button>
+                <button type="button" id="prefix-play-toggle" class="media-command" title="Pause or play all prefix videos"><i data-lucide="pause" aria-hidden="true"></i><span>Pause all</span></button>
+                <button type="button" id="prefix-seek-forward" class="media-command" title="Seek forward 0.5 seconds"><i data-lucide="fast-forward" aria-hidden="true"></i><span>Forward 0.5s</span></button>
+                <button type="button" id="prefix-next" class="media-command" title="Next sample"><i data-lucide="chevron-right" aria-hidden="true"></i><span>Next</span></button>
+                <span class="video-time" id="prefix-time">0.0s / 4.0s</span>
+              </div>
+              <div class="prefix-video-grid" id="prefix-video-grid"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -215,10 +245,23 @@
         <div class="section-heading gallery-heading">
           <div>
             <p class="section-index">06 / Reconstructions</p>
-            <h2 id="gallery-title">Four TRELLIS shapes in motion</h2>
+            <h2 id="gallery-title">ZipTok3D reconstructions</h2>
+          </div>
+          <p>Each card is a ZipTok3D output from the fixed K = 1 or K = 4 evaluation sets. Use the filters to scan all available ShapeNet and TRELLIS examples.</p>
+        </div>
+        <div class="gallery-controls">
+          <div class="segmented" aria-label="Reconstruction dataset filter">
+            <button type="button" data-gallery-dataset="all" aria-pressed="true">All datasets</button>
+            <button type="button" data-gallery-dataset="ShapeNet" aria-pressed="false">ShapeNet</button>
+            <button type="button" data-gallery-dataset="TRELLIS" aria-pressed="false">TRELLIS</button>
+          </div>
+          <div class="segmented" aria-label="Reconstruction token filter">
+            <button type="button" data-gallery-token="all" aria-pressed="true">All prefixes</button>
+            <button type="button" data-gallery-token="1" aria-pressed="false">K = 1</button>
+            <button type="button" data-gallery-token="4" aria-pressed="false">K = 4</button>
           </div>
         </div>
-        <p class="gallery-summary" id="gallery-summary">Bridge, Building, Arch, and Sculpture reconstructed with K = 4 and L = 5.</p>
+        <p class="gallery-summary" id="gallery-summary">29 ZipTok3D reconstructions | ShapeNet + TRELLIS | L = 5.</p>
         <div class="reconstruction-gallery" id="reconstruction-gallery" aria-live="polite"></div>
       </div>
     </section>
@@ -247,6 +290,6 @@
   </footer>
 
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
-<script src="app.js?v=media1"></script>
+<script src="app.js?v=media2"></script>
 </body>
 </html>

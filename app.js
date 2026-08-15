@@ -15,7 +15,7 @@ const explorerState = {
 };
 
 const metricData = { ShapeNet: {}, TRELLIS: {} };
-const ASSET_VERSION = "media1";
+const ASSET_VERSION = "media2";
 
 function assetUrl(path) {
   return `${path}?v=${ASSET_VERSION}`;
@@ -77,108 +77,60 @@ const refinementTrajectories = {
   },
 };
 
-const reconstructionSamples = {
-  shapenet: [
-    {
-      label: "Chair",
-      kind: "comparison",
-      config: "K = 1, L = 2",
-      gt: "assets/posthoc_shapenet_chair_gt.png",
-      codvae: "assets/posthoc_shapenet_chair_codvae32.png",
-      ziptok: "assets/posthoc_shapenet_chair_k1_l2.png",
-    },
-    {
-      label: "Piano",
-      kind: "comparison",
-      config: "K = 1, L = 2",
-      gt: "assets/posthoc_shapenet_piano_gt.png",
-      codvae: "assets/posthoc_shapenet_piano_codvae32.png",
-      ziptok: "assets/posthoc_shapenet_piano_k1_l2.png",
-    },
-    {
-      label: "Additional example A",
-      kind: "comparison",
-      config: "K = 1, L = 5",
-      gt: "assets/shapenet_3889631e42a84b0f51f77a6d7299806_gt.png",
-      codvae: "assets/shapenet_3889631e42a84b0f51f77a6d7299806_codvae32.png",
-      ziptok: "assets/shapenet_3889631e42a84b0f51f77a6d7299806_ours_k1_l5.png",
-    },
-    {
-      label: "Additional example B",
-      kind: "comparison",
-      config: "K = 1, L = 5",
-      gt: "assets/shapenet_862d685006637dfef630324ef3baae90_gt.png",
-      codvae: "assets/shapenet_862d685006637dfef630324ef3baae90_codvae32.png",
-      ziptok: "assets/shapenet_862d685006637dfef630324ef3baae90_ours_k1_l5.png",
-    },
-  ],
-  trellis: [
-    {
-      label: "Castle",
-      kind: "comparison",
-      config: "K = 1, L = 3",
-      gt: "assets/posthoc_trellis_castle_gt.png",
-      codvae: "assets/posthoc_trellis_castle_codvae32.png",
-      ziptok: "assets/posthoc_trellis_castle_k1_l3.png",
-    },
-    {
-      label: "Cityscape",
-      kind: "comparison",
-      config: "K = 1, L = 3",
-      gt: "assets/posthoc_trellis_cityscape_gt.png",
-      codvae: "assets/posthoc_trellis_cityscape_codvae32.png",
-      ziptok: "assets/posthoc_trellis_cityscape_k1_l3.png",
-    },
-    {
-      label: "Village",
-      kind: "comparison",
-      config: "K = 1, L = 3",
-      gt: "assets/posthoc_trellis_village_gt.png",
-      codvae: "assets/posthoc_trellis_village_codvae32.png",
-      ziptok: "assets/posthoc_trellis_village_k1_l3.png",
-    },
-    {
-      label: "Additional example A",
-      kind: "comparison",
-      config: "K = 1, L = 5",
-      gt: "assets/trellis_6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352_gt.png",
-      codvae: "assets/trellis_6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352_codvae32.png",
-      ziptok: "assets/trellis_6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352_ours_k1_l5.png",
-    },
-    {
-      label: "Additional example B",
-      kind: "comparison",
-      config: "K = 1, L = 5",
-      gt: "assets/trellis_9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96_gt.png",
-      codvae: "assets/trellis_9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96_codvae32.png",
-      ziptok: "assets/trellis_9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96_ours_k1_l5.png",
-    },
-    {
-      label: "Bridge",
-      kind: "video",
-      config: "K = 4, L = 5",
-      file: "assets/sample-bridge.mp4",
-    },
-    {
-      label: "Building",
-      kind: "video",
-      config: "K = 4, L = 5",
-      file: "assets/sample-building.mp4",
-    },
-    {
-      label: "Arch",
-      kind: "video",
-      config: "K = 4, L = 5",
-      file: "assets/sample-arch.mp4",
-    },
-    {
-      label: "Sculpture",
-      kind: "video",
-      config: "K = 4, L = 5",
-      file: "assets/sample-sculpture.mp4",
-    },
-  ],
+const prefixSweepGroups = [
+  { dataset: "ShapeNet", id: "3889631e42a84b0f51f77a6d7299806", ours: [1, 4] },
+  { dataset: "ShapeNet", id: "615019f5899e2aee8120bc4dfb819859", ours: [2, 4] },
+  { dataset: "ShapeNet", id: "862d685006637dfef630324ef3baae90", ours: [1, 4] },
+  { dataset: "TRELLIS", id: "4790c119fbfaf597925b68a2dc73f6a1512c7f8c73330f2d7df22e75f0be0acb", ours: [2, 4] },
+  { dataset: "TRELLIS", id: "6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352", ours: [1, 2, 4] },
+  { dataset: "TRELLIS", id: "9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96", ours: [1, 2, 4] },
+].map(group => ({ ...group, key: `${group.dataset.toLowerCase()}__${group.id}` }));
+
+const depthSweepGroups = [
+  { dataset: "ShapeNet", id: "615019f5899e2aee8120bc4dfb819859" },
+  { dataset: "TRELLIS", id: "4790c119fbfaf597925b68a2dc73f6a1512c7f8c73330f2d7df22e75f0be0acb" },
+  { dataset: "TRELLIS", id: "6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352" },
+  { dataset: "TRELLIS", id: "9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96" },
+].map(group => ({ ...group, key: `${group.dataset.toLowerCase()}__${group.id}` }));
+
+const fixedSampleIds = {
+  1: {
+    ShapeNet: ["3889631e42a84b0f51f77a6d7299806", "5fc39e0ecc8e50f0902a571380e15334", "6f764c190cdf1629307776da88d1350f", "862d685006637dfef630324ef3baae90", "8c942a8e196a9371a782a4379556c7", "aea5192a4a7bda94d33646b0990bb4a", "f144e93fe2a11c1f4c3a35cee92bb95b"],
+    TRELLIS: ["6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352", "9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96"],
+  },
+  4: {
+    ShapeNet: ["3889631e42a84b0f51f77a6d7299806", "45cc71dc2483972e742728b30848ed03", "4be2461bad10aa82a875c848d0fb1664", "615019f5899e2aee8120bc4dfb819859", "6ae80779dd34c194c664c3d4e2d59341", "753452a3a8f44bd38b69f185154696a3", "862d685006637dfef630324ef3baae90", "89054836cd41bfb9820018801b237b3d", "b04647659c599ade7fb4fbe822d98e36", "f1e439307b834015770a0ff1161fa15a"],
+    TRELLIS: ["38ad2ab0956d62e020aebdba4436d5161305bddc5545a0af071d090e9239a0b0", "4790c119fbfaf597925b68a2dc73f6a1512c7f8c73330f2d7df22e75f0be0acb", "6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352", "9b9d2e8f6934cc8b9863d5eae9a5079c96ef7e4cc6bf5b5390413999692bb215", "9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96", "b5713c33c8c8760cc9b626f118429e0a73f3dc9f835d05ff5a2289e696db8ace", "b9cb7eb2ea644400edc9dabaed9f87e6c01b931cd9e2c06b6c7c5f2a2beb4bdd", "c5811b20ef6665bde281689967aeb4fedcd84642921ed73d814113029fabf1de", "f78241f24ea30188492ac33ddf7a4edc7b0c5ced8b1c8855eb864ebd7615e75e", "f87f6c8a081e984f5d898aa6908f8e635f9c6cbf2cfca70747d32c54712dc76a"],
+  },
 };
+
+function mediaAsset(directory, group, stem, extension = "mp4") {
+  const file = `${group}--${stem}.${extension}`;
+  return `assets/media/${directory}/${file}`;
+}
+
+function posterAsset(directory, group, stem) {
+  const file = `${group}--${stem}.jpg`;
+  return `assets/posters/${directory}/${file}`;
+}
+
+const reconstructionSamples = Object.entries(fixedSampleIds).flatMap(([token, datasets]) =>
+  Object.entries(datasets).flatMap(([dataset, ids]) => ids.map(id => {
+    const setting = `fixed_k${token}_l5_vs_codvae32`;
+    const group = `${dataset.toLowerCase()}__${id}`;
+    const stem = `ziptok3d_k${token}_l5`;
+    return {
+      dataset,
+      token: Number(token),
+      id,
+      label: `${dataset} / ${id.slice(0, 8)}`,
+      kind: "video",
+      config: `K = ${token}, L = 5`,
+      file: mediaAsset("reconstructions", `${setting}--${group}`, stem),
+      poster: posterAsset("reconstructions", `${setting}--${group}`, stem),
+    };
+  }))
+);
 
 function parseCsv(text) {
   const lines = text.trim().split(/\r?\n/);
@@ -358,25 +310,197 @@ function renderResults(dataset) {
   });
 }
 
-function setRefinementTrajectory(sample) {
-  const data = refinementTrajectories[sample];
-  document.querySelectorAll("[data-trajectory]").forEach(button => {
-    button.setAttribute("aria-pressed", String(button.dataset.trajectory === sample));
+function videoSource(file, poster, label) {
+  const video = document.createElement("video");
+  video.src = assetUrl(file);
+  video.poster = assetUrl(poster);
+  video.autoplay = true;
+  video.muted = true;
+  video.loop = true;
+  video.controls = true;
+  video.playsInline = true;
+  video.preload = "auto";
+  video.setAttribute("aria-label", label);
+  return video;
+}
+
+function commandButton(id, label, icon) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.id = id;
+  button.className = "media-command";
+  button.innerHTML = `<i data-lucide="${icon}" aria-hidden="true"></i><span>${label}</span>`;
+  return button;
+}
+
+function videoGroupControls(videos, controls) {
+  let commandLock = false;
+  let masterVideo = videos[0];
+
+  const setToggleLabel = playing => {
+    if (!controls.toggle) return;
+    controls.toggle.innerHTML = `<i data-lucide="${playing ? "pause" : "play"}" aria-hidden="true"></i><span>${playing ? "Pause all" : "Play all"}</span>`;
+    if (window.lucide) window.lucide.createIcons();
+  };
+
+  const updateTime = () => {
+    if (!controls.status || !masterVideo || !Number.isFinite(masterVideo.duration)) return;
+    const elapsed = masterVideo.currentTime.toFixed(1);
+    const duration = masterVideo.duration.toFixed(1);
+    controls.status.textContent = `${elapsed}s / ${duration}s`;
+  };
+
+  const playAll = () => {
+    commandLock = true;
+    videos.forEach(video => video.play().catch(() => {}));
+    setToggleLabel(true);
+    window.setTimeout(() => { commandLock = false; }, 300);
+  };
+
+  const pauseAll = () => {
+    commandLock = true;
+    videos.forEach(video => video.pause());
+    setToggleLabel(false);
+    window.setTimeout(() => { commandLock = false; }, 300);
+  };
+
+  const seekAll = delta => {
+    const current = masterVideo?.currentTime || 0;
+    const duration = Number.isFinite(masterVideo?.duration) && masterVideo.duration > 0
+      ? masterVideo.duration
+      : current + delta;
+    const nextTime = Math.max(0, Math.min(duration, current + delta));
+    commandLock = true;
+    videos.forEach(video => { video.currentTime = nextTime; });
+    updateTime();
+    window.setTimeout(() => { commandLock = false; }, 100);
+  };
+
+  videos.forEach(video => {
+    video.addEventListener("play", () => {
+      masterVideo = video;
+      if (!commandLock) playAll();
+    });
+    video.addEventListener("pause", () => {
+      if (!commandLock) pauseAll();
+    });
+    video.addEventListener("timeupdate", () => {
+      if (video === masterVideo && !commandLock) {
+        videos.forEach(other => {
+          if (other !== video && Math.abs(other.currentTime - video.currentTime) > 0.08) {
+            other.currentTime = video.currentTime;
+          }
+        });
+      }
+      updateTime();
+    });
   });
-  document.getElementById("refine-sample-name").textContent = data.label;
-  document.getElementById("refine-sample-config").textContent = "Shared block, three depths";
-  document.getElementById("refine-trajectory-dataset").textContent = data.dataset;
-  document.getElementById("refine-trajectory-name").textContent = data.label;
-  ["gt", "l1", "l3", "l5"].forEach(depth => {
-    const image = document.getElementById(`trajectory-${depth}`);
-    image.src = assetUrl(data[depth]);
-    image.alt = `${data.label} ${depth === "gt" ? "reference" : `reconstruction at ${depth.slice(1)} refinement passes`}`;
+
+  controls.toggle?.addEventListener("click", () => {
+    if (videos.some(video => video.paused)) playAll();
+    else pauseAll();
   });
+  controls.back?.addEventListener("click", () => seekAll(-0.5));
+  controls.forward?.addEventListener("click", () => seekAll(0.5));
+  videos.forEach(video => video.addEventListener("loadedmetadata", updateTime, { once: true }));
+  playAll();
+}
+
+function renderDepthSelectors() {
+  const picker = document.getElementById("depth-sample-picker");
+  picker.replaceChildren(...depthSweepGroups.map((group, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.dataset.depthSample = String(index);
+    button.setAttribute("aria-pressed", String(index === 0));
+    button.innerHTML = `<strong>${group.dataset}</strong><span>${group.id.slice(0, 8)}</span>`;
+    return button;
+  }));
+}
+
+function renderDepthSweep(index) {
+  const group = depthSweepGroups[index];
+  document.querySelectorAll("[data-depth-sample]").forEach(button => {
+    button.setAttribute("aria-pressed", String(Number(button.dataset.depthSample) === index));
+  });
+  document.getElementById("depth-sample-name").textContent = `${group.dataset} / ${group.id.slice(0, 8)}`;
+  document.getElementById("depth-sample-config").textContent = "K = 2, shared decoder";
+  const grid = document.getElementById("depth-video-grid");
+  const videos = [];
+  grid.replaceChildren(...[1, 3, 5].map(depth => {
+    const figure = document.createElement("figure");
+    const source = {
+      file: mediaAsset("depth-sweep", group.key, `ziptok3d_k2_l${depth}`),
+      poster: posterAsset("depth-sweep", group.key, `ziptok3d_k2_l${depth}`),
+    };
+    const video = videoSource(source.file, source.poster, `${group.dataset} ${group.id.slice(0, 8)}, reconstruction at L = ${depth}`);
+    videos.push(video);
+    const caption = document.createElement("figcaption");
+    caption.innerHTML = `<strong>L = ${depth}</strong><span>${depth === 1 ? "coarse structure" : depth === 3 ? "structure recovered" : "surface refined"}</span>`;
+    figure.append(video, caption);
+    return figure;
+  }));
+  videoGroupControls(videos, {
+    toggle: document.getElementById("depth-play-toggle"),
+    back: document.getElementById("depth-seek-back"),
+    forward: document.getElementById("depth-seek-forward"),
+    status: document.getElementById("depth-time"),
+  });
+  if (window.lucide) window.lucide.createIcons();
+}
+
+function renderPrefixSelectors() {
+  const picker = document.getElementById("prefix-sample-picker");
+  picker.replaceChildren(...prefixSweepGroups.map((group, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.dataset.prefixSample = String(index);
+    button.setAttribute("aria-pressed", String(index === 0));
+    button.innerHTML = `<strong>${group.dataset}</strong><span>${group.id.slice(0, 8)} · K ${group.ours.join(", ")}</span>`;
+    return button;
+  }));
+}
+
+function renderPrefixSweep(index) {
+  const group = prefixSweepGroups[index];
+  document.querySelectorAll("[data-prefix-sample]").forEach(button => {
+    button.setAttribute("aria-pressed", String(Number(button.dataset.prefixSample) === index));
+  });
+  document.getElementById("prefix-sample-name").textContent = `${group.dataset} / ${group.id.slice(0, 8)}`;
+  document.getElementById("prefix-sample-config").textContent = `L = 5, K = ${group.ours.join(", ")}`;
+  const media = [
+    ["Ground truth", "ground_truth", "Reference surface"],
+    ["COD-VAE", "codvae_k32", "K = 32"],
+    ...group.ours.map(token => [`ZipTok3D, K = ${token}`, `ziptok3d_k${token}_l5`, `K = ${token}`]),
+    ["Turntable overview", "turntable", "Composite view"],
+  ];
+  const grid = document.getElementById("prefix-video-grid");
+  const videos = [];
+  grid.replaceChildren(...media.map(([label, stem, detail]) => {
+    const figure = document.createElement("figure");
+    const video = videoSource(
+      mediaAsset("prefix-sweep", group.key, stem),
+      posterAsset("prefix-sweep", group.key, stem),
+      `${group.dataset} ${group.id.slice(0, 8)}, ${label}`,
+    );
+    videos.push(video);
+    const caption = document.createElement("figcaption");
+    caption.innerHTML = `<strong>${label}</strong><span>${detail}</span>`;
+    figure.append(video, caption);
+    return figure;
+  }));
+  videoGroupControls(videos, {
+    toggle: document.getElementById("prefix-play-toggle"),
+    back: document.getElementById("prefix-seek-back"),
+    forward: document.getElementById("prefix-seek-forward"),
+    status: document.getElementById("prefix-time"),
+  });
+  if (window.lucide) window.lucide.createIcons();
 }
 
 function renderReconstructionSample(sample) {
   const article = document.createElement("article");
-  article.className = `reconstruction-sample ${sample.kind === "video" ? "reconstruction-video-sample" : ""}`;
+  article.className = `reconstruction-sample ${sample.kind === "video" ? "reconstruction-video-sample" : ""} ${sample.dataset.toLowerCase()}`;
 
   const header = document.createElement("header");
   const title = document.createElement("strong");
@@ -387,14 +511,7 @@ function renderReconstructionSample(sample) {
   article.appendChild(header);
 
   if (sample.kind === "video") {
-    const video = document.createElement("video");
-    video.src = assetUrl(sample.file);
-    video.autoplay = true;
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.preload = "metadata";
-    video.setAttribute("aria-label", `${sample.label} reconstruction comparison`);
+    const video = videoSource(sample.file, sample.poster, `${sample.label}, ZipTok3D reconstruction`);
     article.appendChild(video);
   } else {
     const comparison = document.createElement("div");
@@ -419,15 +536,27 @@ function renderReconstructionSample(sample) {
   return article;
 }
 
-function setGallery(dataset) {
-  document.querySelectorAll("[data-gallery]").forEach(button => {
-    button.setAttribute("aria-pressed", String(button.dataset.gallery === dataset));
+const galleryState = { dataset: "all", token: "all" };
+let depthSweepIndex = 0;
+let prefixSweepIndex = 0;
+
+function setGallery(dataset = galleryState.dataset, token = galleryState.token) {
+  galleryState.dataset = dataset;
+  galleryState.token = token;
+  document.querySelectorAll("[data-gallery-dataset]").forEach(button => {
+    button.setAttribute("aria-pressed", String(button.dataset.galleryDataset === dataset));
+  });
+  document.querySelectorAll("[data-gallery-token]").forEach(button => {
+    button.setAttribute("aria-pressed", String(button.dataset.galleryToken === token));
   });
   const gallery = document.getElementById("reconstruction-gallery");
-  const dynamicSamples = reconstructionSamples.trellis.filter(sample => sample.kind === "video");
+  const dynamicSamples = reconstructionSamples.filter(sample =>
+    (dataset === "all" || sample.dataset === dataset) &&
+    (token === "all" || String(sample.token) === token),
+  );
   gallery.replaceChildren(...dynamicSamples.map(renderReconstructionSample));
   document.getElementById("gallery-summary").textContent =
-    "Bridge, Building, Arch, and Sculpture reconstructed with K = 4 and L = 5.";
+    `${dynamicSamples.length} ZipTok3D reconstructions | ${dataset === "all" ? "ShapeNet + TRELLIS" : dataset}${token === "all" ? "" : ` | K = ${token}`} | L = 5.`;
   gallery.querySelectorAll("video").forEach(video => video.play().catch(() => {}));
 }
 
@@ -457,15 +586,50 @@ function bindControls() {
   document.querySelectorAll("[data-result-dataset]").forEach(button => {
     button.addEventListener("click", () => renderResults(button.dataset.resultDataset));
   });
-  document.querySelectorAll("[data-gallery]").forEach(button => {
-    button.addEventListener("click", () => setGallery(button.dataset.gallery));
+  document.querySelectorAll("[data-depth-sample]").forEach(button => {
+    button.addEventListener("click", () => {
+      depthSweepIndex = Number(button.dataset.depthSample);
+      renderDepthSweep(depthSweepIndex);
+    });
+  });
+  document.querySelectorAll("[data-prefix-sample]").forEach(button => {
+    button.addEventListener("click", () => {
+      prefixSweepIndex = Number(button.dataset.prefixSample);
+      renderPrefixSweep(prefixSweepIndex);
+    });
+  });
+  document.getElementById("depth-prev").addEventListener("click", () => {
+    depthSweepIndex = (depthSweepIndex + depthSweepGroups.length - 1) % depthSweepGroups.length;
+    renderDepthSweep(depthSweepIndex);
+  });
+  document.getElementById("depth-next").addEventListener("click", () => {
+    depthSweepIndex = (depthSweepIndex + 1) % depthSweepGroups.length;
+    renderDepthSweep(depthSweepIndex);
+  });
+  document.getElementById("prefix-prev").addEventListener("click", () => {
+    prefixSweepIndex = (prefixSweepIndex + prefixSweepGroups.length - 1) % prefixSweepGroups.length;
+    renderPrefixSweep(prefixSweepIndex);
+  });
+  document.getElementById("prefix-next").addEventListener("click", () => {
+    prefixSweepIndex = (prefixSweepIndex + 1) % prefixSweepGroups.length;
+    renderPrefixSweep(prefixSweepIndex);
+  });
+  document.querySelectorAll("[data-gallery-dataset]").forEach(button => {
+    button.addEventListener("click", () => setGallery(button.dataset.galleryDataset, galleryState.token));
+  });
+  document.querySelectorAll("[data-gallery-token]").forEach(button => {
+    button.addEventListener("click", () => setGallery(galleryState.dataset, button.dataset.galleryToken));
   });
 }
 
 async function initialize() {
+  renderDepthSelectors();
+  renderPrefixSelectors();
   bindControls();
   renderResults("ShapeNet");
-  setGallery("trellis");
+  renderDepthSweep(depthSweepIndex);
+  renderPrefixSweep(prefixSweepIndex);
+  setGallery("all", "all");
   if (window.lucide) window.lucide.createIcons();
 
   try {

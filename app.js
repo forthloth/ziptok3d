@@ -77,21 +77,41 @@ const refinementTrajectories = {
   },
 };
 
-const prefixSweepGroups = [
-  { dataset: "ShapeNet", id: "3889631e42a84b0f51f77a6d7299806", ours: [1, 4] },
-  { dataset: "ShapeNet", id: "615019f5899e2aee8120bc4dfb819859", ours: [2, 4] },
-  { dataset: "ShapeNet", id: "862d685006637dfef630324ef3baae90", ours: [1, 4] },
-  { dataset: "TRELLIS", id: "4790c119fbfaf597925b68a2dc73f6a1512c7f8c73330f2d7df22e75f0be0acb", ours: [2, 4] },
-  { dataset: "TRELLIS", id: "6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352", ours: [1, 2, 4] },
-  { dataset: "TRELLIS", id: "9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96", ours: [1, 2, 4] },
+const depthSweepGroups = [
+  { dataset: "ShapeNet", id: "615019f5899e2aee8120bc4dfb819859", label: "Lamp" },
+  { dataset: "TRELLIS", id: "4790c119fbfaf597925b68a2dc73f6a1512c7f8c73330f2d7df22e75f0be0acb", label: "Building" },
+  { dataset: "TRELLIS", id: "6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352", label: "Bridge" },
+  { dataset: "TRELLIS", id: "9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96", label: "Village" },
 ].map(group => ({ ...group, key: `${group.dataset.toLowerCase()}__${group.id}` }));
 
-const depthSweepGroups = [
-  { dataset: "ShapeNet", id: "615019f5899e2aee8120bc4dfb819859" },
-  { dataset: "TRELLIS", id: "4790c119fbfaf597925b68a2dc73f6a1512c7f8c73330f2d7df22e75f0be0acb" },
-  { dataset: "TRELLIS", id: "6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352" },
-  { dataset: "TRELLIS", id: "9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96" },
-].map(group => ({ ...group, key: `${group.dataset.toLowerCase()}__${group.id}` }));
+const sampleNames = {
+  "3889631e42a84b0f51f77a6d7299806": "Lamp",
+  "5fc39e0ecc8e50f0902a571380e15334": "Side table",
+  "6f764c190cdf1629307776da88d1350f": "Armchair",
+  "862d685006637dfef630324ef3baae90": "Aircraft",
+  "862d685006637df630324ef3baae90": "Aircraft",
+  "8c942a8e196a9371a782a4379556c7": "Bench",
+  "aea5192a4a7bda94d33646b0990bb4a": "Jet",
+  "f144e93fe2a11c1f4c3a35cee92bb95b": "Glider",
+  "45cc71dc2483972e742728b30848ed03": "Lounge chair",
+  "4be2461bad10aa82a875c848d0fb1664": "Boat",
+  "615019f5899e2aee8120bc4dfb819859": "Lamp",
+  "6ae80779dd34c194c664c3d4e2d59341": "Bookshelf",
+  "753452a3a8f44bd38b69f185154696a3": "Chair",
+  "89054836cd41bfb9820018801b237b3d": "Table",
+  "b04647659c599ade7fb4fbe822d98e36": "Piano",
+  "f1e439307b834015770a0ff1161fa15a": "Mug",
+  "38ad2ab0956d62e020aebdba4436d5161305bddc5545a0af071d090e9239a0b0": "Courtyard",
+  "4790c119fbfaf597925b68a2dc73f6a1512c7f8c73330f2d7df22e75f0be0acb": "Building",
+  "6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352": "Bridge",
+  "9b9d2e8f6934cc8b9863d5eae9a5079c96ef7e4cc6bf5b5390413999692bb215": "Sculpture",
+  "9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96": "Village",
+  "b5713c33c8c8760cc9b626f118429e0a73f3dc9f835d05ff5a2289e696db8ace": "Temple",
+  "b9cb7eb2ea644400edc9dabaed9f87e6c01b931cd9e2c06b6c7c5f2a2beb4bdd": "Ruins",
+  "c5811b20ef6665bde281689967aeb4fedcd84642921ed73d814113029fabf1de": "Stone structure",
+  "f78241f24ea30188492ac33ddf7a4edc7b0c5ced8b1c8855eb864ebd7615e75e": "Fortress",
+  "f87f6c8a081e984f5d898aa6908f8e635f9c6cbf2cfca70747d32c54712dc76a": "Monument",
+};
 
 const fixedSampleIds = {
   1: {
@@ -123,7 +143,7 @@ const reconstructionSamples = Object.entries(fixedSampleIds).flatMap(([token, da
       dataset,
       token: Number(token),
       id,
-      label: `${dataset} / ${id.slice(0, 8)}`,
+      label: sampleNames[id] || "Shape",
       kind: "video",
       config: `K = ${token}, L = 5`,
       file: mediaAsset("reconstructions", `${setting}--${group}`, stem),
@@ -413,7 +433,7 @@ function renderDepthSelectors() {
     button.type = "button";
     button.dataset.depthSample = String(index);
     button.setAttribute("aria-pressed", String(index === 0));
-    button.innerHTML = `<strong>${group.dataset}</strong><span>${group.id.slice(0, 8)}</span>`;
+    button.innerHTML = `<strong>${group.label}</strong><span>${group.dataset}</span>`;
     return button;
   }));
 }
@@ -423,7 +443,7 @@ function renderDepthSweep(index) {
   document.querySelectorAll("[data-depth-sample]").forEach(button => {
     button.setAttribute("aria-pressed", String(Number(button.dataset.depthSample) === index));
   });
-  document.getElementById("depth-sample-name").textContent = `${group.dataset} / ${group.id.slice(0, 8)}`;
+  document.getElementById("depth-sample-name").textContent = group.label;
   document.getElementById("depth-sample-config").textContent = "K = 2, shared decoder";
   const grid = document.getElementById("depth-video-grid");
   const videos = [];
@@ -433,7 +453,7 @@ function renderDepthSweep(index) {
       file: mediaAsset("depth-sweep", group.key, `ziptok3d_k2_l${depth}`),
       poster: posterAsset("depth-sweep", group.key, `ziptok3d_k2_l${depth}`),
     };
-    const video = videoSource(source.file, source.poster, `${group.dataset} ${group.id.slice(0, 8)}, reconstruction at L = ${depth}`);
+    const video = videoSource(source.file, source.poster, `${group.label}, ${group.dataset}, reconstruction at L = ${depth}`);
     videos.push(video);
     const caption = document.createElement("figcaption");
     caption.innerHTML = `<strong>L = ${depth}</strong><span>${depth === 1 ? "coarse structure" : depth === 3 ? "structure recovered" : "surface refined"}</span>`;
@@ -445,55 +465,6 @@ function renderDepthSweep(index) {
     back: document.getElementById("depth-seek-back"),
     forward: document.getElementById("depth-seek-forward"),
     status: document.getElementById("depth-time"),
-  });
-  if (window.lucide) window.lucide.createIcons();
-}
-
-function renderPrefixSelectors() {
-  const picker = document.getElementById("prefix-sample-picker");
-  picker.replaceChildren(...prefixSweepGroups.map((group, index) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.dataset.prefixSample = String(index);
-    button.setAttribute("aria-pressed", String(index === 0));
-    button.innerHTML = `<strong>${group.dataset}</strong><span>${group.id.slice(0, 8)} · K ${group.ours.join(", ")}</span>`;
-    return button;
-  }));
-}
-
-function renderPrefixSweep(index) {
-  const group = prefixSweepGroups[index];
-  document.querySelectorAll("[data-prefix-sample]").forEach(button => {
-    button.setAttribute("aria-pressed", String(Number(button.dataset.prefixSample) === index));
-  });
-  document.getElementById("prefix-sample-name").textContent = `${group.dataset} / ${group.id.slice(0, 8)}`;
-  document.getElementById("prefix-sample-config").textContent = `L = 5, K = ${group.ours.join(", ")}`;
-  const media = [
-    ["Ground truth", "ground_truth", "Reference surface"],
-    ["COD-VAE", "codvae_k32", "K = 32"],
-    ...group.ours.map(token => [`ZipTok3D, K = ${token}`, `ziptok3d_k${token}_l5`, `K = ${token}`]),
-    ["Turntable overview", "turntable", "Composite view"],
-  ];
-  const grid = document.getElementById("prefix-video-grid");
-  const videos = [];
-  grid.replaceChildren(...media.map(([label, stem, detail]) => {
-    const figure = document.createElement("figure");
-    const video = videoSource(
-      mediaAsset("prefix-sweep", group.key, stem),
-      posterAsset("prefix-sweep", group.key, stem),
-      `${group.dataset} ${group.id.slice(0, 8)}, ${label}`,
-    );
-    videos.push(video);
-    const caption = document.createElement("figcaption");
-    caption.innerHTML = `<strong>${label}</strong><span>${detail}</span>`;
-    figure.append(video, caption);
-    return figure;
-  }));
-  videoGroupControls(videos, {
-    toggle: document.getElementById("prefix-play-toggle"),
-    back: document.getElementById("prefix-seek-back"),
-    forward: document.getElementById("prefix-seek-forward"),
-    status: document.getElementById("prefix-time"),
   });
   if (window.lucide) window.lucide.createIcons();
 }
@@ -538,7 +509,6 @@ function renderReconstructionSample(sample) {
 
 const galleryState = { dataset: "all", token: "all" };
 let depthSweepIndex = 0;
-let prefixSweepIndex = 0;
 
 function setGallery(dataset = galleryState.dataset, token = galleryState.token) {
   galleryState.dataset = dataset;
@@ -592,12 +562,6 @@ function bindControls() {
       renderDepthSweep(depthSweepIndex);
     });
   });
-  document.querySelectorAll("[data-prefix-sample]").forEach(button => {
-    button.addEventListener("click", () => {
-      prefixSweepIndex = Number(button.dataset.prefixSample);
-      renderPrefixSweep(prefixSweepIndex);
-    });
-  });
   document.getElementById("depth-prev").addEventListener("click", () => {
     depthSweepIndex = (depthSweepIndex + depthSweepGroups.length - 1) % depthSweepGroups.length;
     renderDepthSweep(depthSweepIndex);
@@ -605,14 +569,6 @@ function bindControls() {
   document.getElementById("depth-next").addEventListener("click", () => {
     depthSweepIndex = (depthSweepIndex + 1) % depthSweepGroups.length;
     renderDepthSweep(depthSweepIndex);
-  });
-  document.getElementById("prefix-prev").addEventListener("click", () => {
-    prefixSweepIndex = (prefixSweepIndex + prefixSweepGroups.length - 1) % prefixSweepGroups.length;
-    renderPrefixSweep(prefixSweepIndex);
-  });
-  document.getElementById("prefix-next").addEventListener("click", () => {
-    prefixSweepIndex = (prefixSweepIndex + 1) % prefixSweepGroups.length;
-    renderPrefixSweep(prefixSweepIndex);
   });
   document.querySelectorAll("[data-gallery-dataset]").forEach(button => {
     button.addEventListener("click", () => setGallery(button.dataset.galleryDataset, galleryState.token));
@@ -624,11 +580,9 @@ function bindControls() {
 
 async function initialize() {
   renderDepthSelectors();
-  renderPrefixSelectors();
   bindControls();
   renderResults("ShapeNet");
   renderDepthSweep(depthSweepIndex);
-  renderPrefixSweep(prefixSweepIndex);
   setGallery("all", "all");
   if (window.lucide) window.lucide.createIcons();
 

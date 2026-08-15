@@ -146,7 +146,7 @@
             <p class="section-index">04 / Progressive unfolding</p>
             <h2 id="refinement-title">Shared computation unfolds the prefix</h2>
           </div>
-          <p>Choose a shape to compare refinement depth and prefix length. The synchronized players keep the geometry aligned while you scrub or pause.</p>
+          <p>Choose a shape to compare three refinement depths. The synchronized players keep the geometry aligned while you scrub or pause.</p>
         </div>
 
         <div class="refinement-depth-layout">
@@ -157,7 +157,7 @@
             </div>
             <div class="sample-picker" id="depth-sample-picker" aria-label="Select a refinement-depth sample"></div>
             <div class="refinement-meta">
-              <span id="depth-sample-name">ShapeNet / 615019f5</span>
+              <span id="depth-sample-name">Lamp</span>
               <strong id="depth-sample-config">K = 2, shared decoder</strong>
             </div>
           </aside>
@@ -174,32 +174,6 @@
           </div>
         </div>
 
-        <div class="prefix-sweep-panel">
-          <div class="prefix-sweep-heading">
-            <div>
-              <span>Prefix-length sweep</span>
-              <strong id="prefix-sample-name">ShapeNet / 3889631e</strong>
-            </div>
-            <strong id="prefix-sample-config">L = 5, K = 1, 4</strong>
-          </div>
-          <div class="prefix-sweep-layout">
-            <aside class="prefix-sweep-copy">
-              <p>Every sample below uses the same four-second render protocol. Select a sample to inspect all available prefixes, including the reference and COD-VAE views.</p>
-              <div class="sample-picker" id="prefix-sample-picker" aria-label="Select a prefix-length sample"></div>
-            </aside>
-            <div class="prefix-sweep-media">
-              <div class="video-toolbar" aria-label="Prefix playback controls">
-                <button type="button" id="prefix-prev" class="media-command" title="Previous sample"><i data-lucide="chevron-left" aria-hidden="true"></i><span>Previous</span></button>
-                <button type="button" id="prefix-seek-back" class="media-command" title="Seek backward 0.5 seconds"><i data-lucide="rewind" aria-hidden="true"></i><span>Back 0.5s</span></button>
-                <button type="button" id="prefix-play-toggle" class="media-command" title="Pause or play all prefix videos"><i data-lucide="pause" aria-hidden="true"></i><span>Pause all</span></button>
-                <button type="button" id="prefix-seek-forward" class="media-command" title="Seek forward 0.5 seconds"><i data-lucide="fast-forward" aria-hidden="true"></i><span>Forward 0.5s</span></button>
-                <button type="button" id="prefix-next" class="media-command" title="Next sample"><i data-lucide="chevron-right" aria-hidden="true"></i><span>Next</span></button>
-                <span class="video-time" id="prefix-time">0.0s / 4.0s</span>
-              </div>
-              <div class="prefix-video-grid" id="prefix-video-grid"></div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 

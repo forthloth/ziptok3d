@@ -15,7 +15,7 @@ const explorerState = {
 };
 
 const metricData = { ShapeNet: {}, TRELLIS: {} };
-const ASSET_VERSION = "gallery3";
+const ASSET_VERSION = "media1";
 
 function assetUrl(path) {
   return `${path}?v=${ASSET_VERSION}`;
@@ -424,10 +424,10 @@ function setGallery(dataset) {
     button.setAttribute("aria-pressed", String(button.dataset.gallery === dataset));
   });
   const gallery = document.getElementById("reconstruction-gallery");
-  gallery.replaceChildren(...reconstructionSamples[dataset].map(renderReconstructionSample));
-  document.getElementById("gallery-summary").textContent = dataset === "shapenet"
-    ? "Four ShapeNet examples with matched ground truth, COD-VAE-32, and ZipTok3D reconstructions."
-    : "Nine TRELLIS examples: five matched comparisons and four rotating sample sheets.";
+  const dynamicSamples = reconstructionSamples.trellis.filter(sample => sample.kind === "video");
+  gallery.replaceChildren(...dynamicSamples.map(renderReconstructionSample));
+  document.getElementById("gallery-summary").textContent =
+    "Bridge, Building, Arch, and Sculpture reconstructed with K = 4 and L = 5.";
   gallery.querySelectorAll("video").forEach(video => video.play().catch(() => {}));
 }
 
@@ -457,9 +457,6 @@ function bindControls() {
   document.querySelectorAll("[data-result-dataset]").forEach(button => {
     button.addEventListener("click", () => renderResults(button.dataset.resultDataset));
   });
-  document.querySelectorAll("[data-trajectory]").forEach(button => {
-    button.addEventListener("click", () => setRefinementTrajectory(button.dataset.trajectory));
-  });
   document.querySelectorAll("[data-gallery]").forEach(button => {
     button.addEventListener("click", () => setGallery(button.dataset.gallery));
   });
@@ -468,8 +465,7 @@ function bindControls() {
 async function initialize() {
   bindControls();
   renderResults("ShapeNet");
-  setRefinementTrajectory("lamp");
-  setGallery("shapenet");
+  setGallery("trellis");
   if (window.lucide) window.lucide.createIcons();
 
   try {

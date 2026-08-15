@@ -51,8 +51,9 @@
           <div><strong>5</strong><span>shared refinement passes</span></div>
         </div>
       </div>
-      <figure class="hero-figure">
-        <img src="assets/headfig.png" alt="Comparison of Ground Truth, VecSet with 512 tokens, COD-VAE with 32 tokens, and ZipTok3D with one token and five refinement steps.">
+      <figure class="hero-figure hero-video-figure">
+        <video src="assets/media-supplementary.mp4" poster="assets/hero-poster.png" autoplay muted loop playsinline preload="metadata" aria-label="ZipTok3D overview video"></video>
+        <figcaption>ZipTok3D in motion: compact prefixes, shared refinement, and reconstructed 3D geometry.</figcaption>
       </figure>
     </header>
 
@@ -68,6 +69,10 @@
           <span>shorter than COD-VAE-32 at the ShapeNet headline point, with matched rounded CD and F1.</span>
         </div>
       </div>
+      <figure class="premise-figure">
+        <img src="assets/headfig.png" alt="Comparison of Ground Truth, VecSet with 512 tokens, COD-VAE with 32 tokens, and ZipTok3D with one token and five refinement steps." loading="lazy">
+        <figcaption>At the headline operating point, one ZipTok3D token approaches the reconstruction quality of a 32-token COD-VAE.</figcaption>
+      </figure>
     </section>
 
     <section class="method-section" id="method" aria-labelledby="method-title">
@@ -138,40 +143,30 @@
       <div class="section-inner refinement-layout">
         <div class="refinement-copy">
           <p class="section-index">04 / Progressive unfolding</p>
-          <h2 id="refinement-title">One decoder, many shapes</h2>
-          <p>Follow the same object through shared decoding at L = 1, L = 3, and L = 5.</p>
-          <div class="refinement-buttons" aria-label="Qualitative sample">
-            <button type="button" data-trajectory="lamp" aria-pressed="true">Lamp</button>
-            <button type="button" data-trajectory="bridge" aria-pressed="false">Bridge</button>
-            <button type="button" data-trajectory="frame" aria-pressed="false">Frame</button>
-            <button type="button" data-trajectory="village" aria-pressed="false">Village</button>
-          </div>
-          <div class="refinement-meta" aria-live="polite">
-            <span id="refine-sample-name">Lamp</span>
-            <strong id="refine-sample-config">Shared block, three depths</strong>
+          <h2 id="refinement-title">Shared computation unfolds the prefix</h2>
+          <p>The same bridge is decoded at three depths. Later passes recover structure and refine the surface without adding latent tokens.</p>
+          <div class="refinement-meta">
+            <span>TRELLIS bridge</span>
+            <strong>K = 4, shared decoder</strong>
           </div>
         </div>
-        <div class="refinement-media refinement-trajectory-panel">
-          <div class="trajectory-heading">
-            <span id="refine-trajectory-dataset">ShapeNet</span>
-            <strong id="refine-trajectory-name">Lamp</strong>
+        <div class="refinement-media refinement-video-panel">
+          <div class="refinement-video-heading">
+            <span>Progressive refinement</span>
+            <strong>One object, three depths</strong>
           </div>
-          <div class="trajectory-grid">
+          <div class="refinement-depth-grid">
             <figure>
-              <img id="trajectory-gt" src="assets/traj_shapenet_lamp_gt.png" alt="Lamp reference reconstruction">
-              <figcaption>Reference</figcaption>
+              <video src="assets/refine-l1.mp4" poster="assets/traj_trellis_bridge_l1.png" autoplay muted loop playsinline preload="metadata" aria-label="Bridge reconstruction after one refinement pass"></video>
+              <figcaption><strong>L = 1</strong><span>coarse structure</span></figcaption>
             </figure>
             <figure>
-              <img id="trajectory-l1" src="assets/traj_shapenet_lamp_l1.png" alt="Lamp reconstruction after one refinement pass">
-              <figcaption>L = 1</figcaption>
+              <video src="assets/refine-l3.mp4" poster="assets/traj_trellis_bridge_l3.png" autoplay muted loop playsinline preload="metadata" aria-label="Bridge reconstruction after three refinement passes"></video>
+              <figcaption><strong>L = 3</strong><span>structure recovered</span></figcaption>
             </figure>
             <figure>
-              <img id="trajectory-l3" src="assets/traj_shapenet_lamp_l3.png" alt="Lamp reconstruction after three refinement passes">
-              <figcaption>L = 3</figcaption>
-            </figure>
-            <figure>
-              <img id="trajectory-l5" src="assets/traj_shapenet_lamp_l5.png" alt="Lamp reconstruction after five refinement passes">
-              <figcaption>L = 5</figcaption>
+              <video src="assets/refine-l5.mp4" poster="assets/traj_trellis_bridge_l5.png" autoplay muted loop playsinline preload="metadata" aria-label="Bridge reconstruction after five refinement passes"></video>
+              <figcaption><strong>L = 5</strong><span>surface refined</span></figcaption>
             </figure>
           </div>
         </div>
@@ -220,19 +215,11 @@
         <div class="section-heading gallery-heading">
           <div>
             <p class="section-index">06 / Reconstructions</p>
-            <h2 id="gallery-title">Reconstructions, side by side</h2>
-          </div>
-          <div class="segmented" id="gallery-control" aria-label="Gallery dataset">
-            <button type="button" data-gallery="shapenet" aria-pressed="true">ShapeNet</button>
-            <button type="button" data-gallery="trellis" aria-pressed="false">TRELLIS</button>
+            <h2 id="gallery-title">Four TRELLIS shapes in motion</h2>
           </div>
         </div>
-        <p class="gallery-summary" id="gallery-summary">ShapeNet examples with matched ground truth, COD-VAE-32, and ZipTok3D reconstructions.</p>
+        <p class="gallery-summary" id="gallery-summary">Bridge, Building, Arch, and Sculpture reconstructed with K = 4 and L = 5.</p>
         <div class="reconstruction-gallery" id="reconstruction-gallery" aria-live="polite"></div>
-        <figure class="qualitative-strip">
-          <img src="assets/qualitative.png" alt="Additional ShapeNet and TRELLIS comparisons among ground truth, COD-VAE-32, and ZipTok3D with four tokens" loading="lazy">
-          <figcaption>Additional reconstruction samples.</figcaption>
-        </figure>
       </div>
     </section>
 

@@ -89,7 +89,6 @@ const sampleNames = {
   "5fc39e0ecc8e50f0902a571380e15334": "Side table",
   "6f764c190cdf1629307776da88d1350f": "Armchair",
   "862d685006637dfef630324ef3baae90": "Aircraft",
-  "862d685006637df630324ef3baae90": "Aircraft",
   "8c942a8e196a9371a782a4379556c7": "Bench",
   "aea5192a4a7bda94d33646b0990bb4a": "Jet",
   "f144e93fe2a11c1f4c3a35cee92bb95b": "Glider",
@@ -604,3 +603,4 @@ async function initialize() {
 }
 
 document.addEventListener("DOMContentLoaded", initialize);
+

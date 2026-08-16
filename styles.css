@@ -1627,6 +1627,47 @@ footer {
   .generation-measures { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* Keep the operating-space controls readable before the narrow-phone breakpoint. */
+@media (max-width: 1080px) {
+  .explorer-heading {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+  }
+
+  .explorer-heading h2 {
+    font-size: clamp(34px, 4.5vw, 43px);
+  }
+
+  .explorer-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+
+  .selection-panel {
+    padding: 24px 0 0;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+
+  .selection-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .selection-metrics div {
+    display: block;
+  }
+
+  .selection-metrics span {
+    display: block;
+  }
+
+  .selection-metrics strong {
+    display: inline-block;
+    margin-top: 5px;
+  }
+}
+
 @media (max-width: 820px) {
   :root { --nav-height: 58px; }
   .section-inner { width: min(calc(100% - 32px), var(--content)); }
@@ -2042,4 +2083,3 @@ footer {
     flex: 1;
   }
 }
-

@@ -15,7 +15,7 @@ const explorerState = {
 };
 
 const metricData = { ShapeNet: {}, TRELLIS: {} };
-const ASSET_VERSION = "media4";
+const ASSET_VERSION = "media5";
 
 function assetUrl(path) {
   return `${path}?v=${ASSET_VERSION}`;

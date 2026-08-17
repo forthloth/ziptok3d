@@ -223,6 +223,30 @@ footer svg {
   line-height: 1.45;
 }
 
+.hero-authors {
+  max-width: 820px;
+  margin: -12px 0 26px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.hero-authors a {
+  color: var(--ink);
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+
+.hero-authors a:hover {
+  color: var(--mint-deep);
+  text-decoration: underline;
+}
+
+.hero-authors span {
+  color: var(--line-dark);
+  padding: 0 0.35em;
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1678,6 +1702,7 @@ footer {
   .hero-content { padding-top: 48px; }
   .hero h1 { font-size: 58px; }
   .hero-deck { max-width: 530px; font-size: 19px; }
+  .hero-authors { max-width: 620px; font-size: 13px; }
   .hero-facts { gap: 18px; }
   .hero-facts div { grid-template-columns: auto 95px; }
   .hero-facts strong { font-size: 31px; }
@@ -1712,6 +1737,7 @@ footer {
   .nav-paper svg { width: 20px; height: 20px; }
   .hero h1 { font-size: 52px; }
   .hero-deck { font-size: 17px; }
+  .hero-authors { margin-top: -8px; font-size: 12px; line-height: 1.65; }
   .hero-actions { gap: 8px; }
   .button { padding: 8px 11px; font-size: 12px; }
   .hero-facts { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; gap: 8px; }

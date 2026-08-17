@@ -15,7 +15,7 @@ const explorerState = {
 };
 
 const metricData = { ShapeNet: {}, TRELLIS: {} };
-const ASSET_VERSION = "media5";
+const ASSET_VERSION = "media6";
 
 function assetUrl(path) {
   return `${path}?v=${ASSET_VERSION}`;
@@ -67,19 +67,10 @@ const refinementTrajectories = {
     l3: "assets/traj_trellis_frame_l3.png",
     l5: "assets/traj_trellis_frame_l5.png",
   },
-  village: {
-    label: "Village",
-    dataset: "TRELLIS",
-    gt: "assets/traj_trellis_village_gt.png",
-    l1: "assets/traj_trellis_village_l1.png",
-    l3: "assets/traj_trellis_village_l3.png",
-    l5: "assets/traj_trellis_village_l5.png",
-  },
 };
 
 const depthSweepGroups = [
   { dataset: "TRELLIS", id: "6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352", label: "Bridge" },
-  { dataset: "TRELLIS", id: "9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96", label: "Village" },
 ].map(group => ({ ...group, key: `${group.dataset.toLowerCase()}__${group.id}` }));
 
 const sampleNames = {
@@ -93,24 +84,17 @@ const sampleNames = {
   "89054836cd41bfb9820018801b237b3d": "Table",
   "b04647659c599ade7fb4fbe822d98e36": "Piano",
   "f1e439307b834015770a0ff1161fa15a": "Mug",
-  "38ad2ab0956d62e020aebdba4436d5161305bddc5545a0af071d090e9239a0b0": "Courtyard",
   "6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352": "Bridge",
-  "9b9d2e8f6934cc8b9863d5eae9a5079c96ef7e4cc6bf5b5390413999692bb215": "Sculpture",
-  "9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96": "Village",
-  "b5713c33c8c8760cc9b626f118429e0a73f3dc9f835d05ff5a2289e696db8ace": "Temple",
-  "b9cb7eb2ea644400edc9dabaed9f87e6c01b931cd9e2c06b6c7c5f2a2beb4bdd": "Ruins",
-  "c5811b20ef6665bde281689967aeb4fedcd84642921ed73d814113029fabf1de": "Stone structure",
-  "f78241f24ea30188492ac33ddf7a4edc7b0c5ced8b1c8855eb864ebd7615e75e": "Fortress",
 };
 
 const fixedSampleIds = {
   1: {
     ShapeNet: ["5fc39e0ecc8e50f0902a571380e15334", "862d685006637dfef630324ef3baae90", "8c942a8e196a9371a782a4379556c7", "aea5192a4a7bda94d33646b0990bb4a", "f144e93fe2a11c1f4c3a35cee92bb95b"],
-    TRELLIS: ["9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96"],
+    TRELLIS: [],
   },
   4: {
     ShapeNet: ["753452a3a8f44bd38b69f185154696a3", "862d685006637dfef630324ef3baae90", "89054836cd41bfb9820018801b237b3d", "b04647659c599ade7fb4fbe822d98e36", "f1e439307b834015770a0ff1161fa15a"],
-    TRELLIS: ["38ad2ab0956d62e020aebdba4436d5161305bddc5545a0af071d090e9239a0b0", "6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352", "9b9d2e8f6934cc8b9863d5eae9a5079c96ef7e4cc6bf5b5390413999692bb215", "9d9625aa847810da394b2c5b84d291a5e038d670c041d550dc4fe837bbe48a96", "b5713c33c8c8760cc9b626f118429e0a73f3dc9f835d05ff5a2289e696db8ace", "b9cb7eb2ea644400edc9dabaed9f87e6c01b931cd9e2c06b6c7c5f2a2beb4bdd", "c5811b20ef6665bde281689967aeb4fedcd84642921ed73d814113029fabf1de", "f78241f24ea30188492ac33ddf7a4edc7b0c5ced8b1c8855eb864ebd7615e75e"],
+    TRELLIS: ["6889cb7c4faea430ef6e8c32be4e9c38bd8f4e6a439c92012a4e230f2e9c1352"],
   },
 };
 

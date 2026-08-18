@@ -232,6 +232,8 @@ footer svg {
 }
 
 .hero-authors a {
+  font: inherit;
+  font-style: normal;
   color: var(--ink);
   text-decoration: none;
   text-underline-offset: 3px;

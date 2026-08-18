@@ -247,6 +247,18 @@ footer svg {
   padding: 0 0.35em;
 }
 
+.hero-authors > .author-note {
+  display: block;
+  margin-top: 3px;
+  padding: 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+
+.hero-authors > .author-note sup {
+  font-size: 0.8em;
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;

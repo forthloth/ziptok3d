@@ -15,7 +15,42 @@ const explorerState = {
 };
 
 const metricData = { ShapeNet: {}, TRELLIS: {} };
-const ASSET_VERSION = "media6";
+const ASSET_VERSION = "media8";
+
+let lazyVideoObserver;
+
+function loadVideo(video) {
+  if (!video.dataset.src) return;
+  video.src = video.dataset.src;
+  delete video.dataset.src;
+  video.load();
+}
+
+function observeVideo(video) {
+  if (!("IntersectionObserver" in window)) {
+    loadVideo(video);
+    video.play().catch(() => {});
+    return;
+  }
+  if (!lazyVideoObserver) {
+    lazyVideoObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const target = entry.target;
+        if (!target.isConnected) {
+          lazyVideoObserver.unobserve(target);
+          return;
+        }
+        if (entry.isIntersecting) {
+          loadVideo(target);
+          target.play().catch(() => {});
+        } else {
+          target.pause();
+        }
+      });
+    }, { rootMargin: "240px 0px" });
+  }
+  lazyVideoObserver.observe(video);
+}
 
 function assetUrl(path) {
   return `${path}?v=${ASSET_VERSION}`;
@@ -306,15 +341,18 @@ function renderResults(dataset) {
 
 function videoSource(file, poster, label) {
   const video = document.createElement("video");
-  video.src = assetUrl(file);
+  video.dataset.src = assetUrl(file);
   video.poster = assetUrl(poster);
   video.autoplay = true;
   video.muted = true;
   video.loop = true;
   video.controls = true;
   video.playsInline = true;
-  video.preload = "auto";
+  video.preload = "metadata";
+  video.dataset.pauseOffscreen = "true";
   video.setAttribute("aria-label", label);
+  video.addEventListener("error", () => video.classList.add("media-error"), { once: true });
+  observeVideo(video);
   return video;
 }
 
@@ -346,7 +384,10 @@ function videoGroupControls(videos, controls) {
 
   const playAll = () => {
     commandLock = true;
-    videos.forEach(video => video.play().catch(() => {}));
+    videos.forEach(video => {
+      loadVideo(video);
+      video.play().catch(() => {});
+    });
     setToggleLabel(true);
     window.setTimeout(() => { commandLock = false; }, 300);
   };
@@ -397,7 +438,7 @@ function videoGroupControls(videos, controls) {
   controls.back?.addEventListener("click", () => seekAll(-0.5));
   controls.forward?.addEventListener("click", () => seekAll(0.5));
   videos.forEach(video => video.addEventListener("loadedmetadata", updateTime, { once: true }));
-  playAll();
+  setToggleLabel(false);
 }
 
 function renderDepthSelectors() {
@@ -501,10 +542,31 @@ function setGallery(dataset = galleryState.dataset, token = galleryState.token) 
   gallery.replaceChildren(...dynamicSamples.map(renderReconstructionSample));
   document.getElementById("gallery-summary").textContent =
     `${dynamicSamples.length} ZipTok3D reconstructions | ${dataset === "all" ? "ShapeNet + TRELLIS" : dataset}${token === "all" ? "" : ` | K = ${token}`} | L = 5.`;
-  gallery.querySelectorAll("video").forEach(video => video.play().catch(() => {}));
 }
 
 function bindControls() {
+  const navToggle = document.getElementById("nav-toggle");
+  const navLinks = document.getElementById("nav-links");
+  const closeNav = () => {
+    navToggle?.setAttribute("aria-expanded", "false");
+    navToggle?.setAttribute("aria-label", "Open navigation");
+    navLinks?.classList.remove("is-open");
+  };
+  navToggle?.addEventListener("click", () => {
+    const open = navToggle.getAttribute("aria-expanded") === "true";
+    navToggle.setAttribute("aria-expanded", String(!open));
+    navToggle.setAttribute("aria-label", open ? "Open navigation" : "Close navigation");
+    navLinks?.classList.toggle("is-open", !open);
+  });
+  navLinks?.querySelectorAll("a").forEach(link => link.addEventListener("click", closeNav));
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeNav();
+  });
+  document.addEventListener("click", event => {
+    if (!navLinks?.classList.contains("is-open")) return;
+    if (!navLinks.contains(event.target) && !navToggle?.contains(event.target)) closeNav();
+  });
+
   document.querySelectorAll("[data-dataset]").forEach(button => {
     button.addEventListener("click", () => {
       explorerState.dataset = button.dataset.dataset;

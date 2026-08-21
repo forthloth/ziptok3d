@@ -4,8 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="ZipTok3D: high-fidelity 3D tokenization with compact token prefixes and shared iterative decoding.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ZipTok3D - Compact Token Prefixes for High-Fidelity 3D">
+  <meta property="og:description" content="High-fidelity 3D reconstruction from compact global-token prefixes with shared iterative decoding.">
+  <meta property="og:url" content="https://forthloth.github.io/ziptok3d/">
+  <meta property="og:image" content="https://forthloth.github.io/ziptok3d/assets/headfig.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ZipTok3D - Compact Token Prefixes for High-Fidelity 3D">
+  <meta name="twitter:description" content="High-fidelity 3D reconstruction from compact global-token prefixes with shared iterative decoding.">
+  <meta name="twitter:image" content="https://forthloth.github.io/ziptok3d/assets/headfig.png">
+  <link rel="icon" type="image/png" href="assets/hero-poster-compact.png">
   <title>ZipTok3D - Compact Token Prefixes for High-Fidelity 3D</title>
-<link rel="stylesheet" href="styles.css?v=media7">
+<link rel="stylesheet" href="styles.css?v=media8">
 </head>
 <body>
   <nav class="site-nav" aria-label="Primary navigation">
@@ -13,7 +23,10 @@
       <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
       <span>ZipTok3D</span>
     </a>
-    <div class="nav-links">
+    <button class="nav-toggle" type="button" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation">
+      <i data-lucide="menu" aria-hidden="true"></i>
+    </button>
+    <div class="nav-links" id="nav-links">
       <a href="#method">Method</a>
       <a href="#explorer">Explorer</a>
       <a href="#results">Results</a>
@@ -36,11 +49,11 @@
           <a href="https://lhmd.top/" target="_blank" rel="noreferrer">Weijie Wang</a><sup>*</sup><span aria-hidden="true">·</span>
           <a href="https://steve-zeyu-zhang.github.io/" target="_blank" rel="noreferrer">Zeyu Zhang</a><span aria-hidden="true">·</span>
           <a href="https://github.com/argsss" target="_blank" rel="noreferrer">Bowen Cui</a><span aria-hidden="true">·</span>
-          <a href="http://hexy.tech/" target="_blank" rel="noreferrer">Yefei He</a><span aria-hidden="true">·</span>
+          <a href="https://hexy.tech/" target="_blank" rel="noreferrer">Yefei He</a><span aria-hidden="true">·</span>
           <a href="https://zhao-haoyu.github.io/" target="_blank" rel="noreferrer">Haoyu Zhao</a><span aria-hidden="true">·</span>
           <a href="https://github.com/Yuanyu0" target="_blank" rel="noreferrer">Yuanyu He</a><span aria-hidden="true">·</span>
           <a href="https://donydchen.github.io/" target="_blank" rel="noreferrer">Donny Y. Chen</a><span aria-hidden="true">·</span>
-          <a href="https://v3alab.github.io/author/feng-chen/" target="_blank" rel="noreferrer">Feng Chen</a><sup>&dagger;</sup><span aria-hidden="true">·</span>
+          <a href="https://chenfeng1271.github.io/" target="_blank" rel="noreferrer">Feng Chen</a><sup>&dagger;</sup><span aria-hidden="true">·</span>
           <a href="https://bohanzhuang.github.io/" target="_blank" rel="noreferrer">Bohan Zhuang</a><sup>&dagger;</sup>
           <span class="author-note"><sup>*</sup> Equal contribution <span aria-hidden="true">·</span> <sup>&dagger;</sup> Corresponding authors</span>
         </p>
@@ -122,7 +135,7 @@
         </div>
 
         <div class="explorer-layout">
-          <div class="heatmap-wrap">
+        <div class="heatmap-wrap" aria-label="Scrollable metric heatmap">
             <div class="heatmap" id="heatmap" role="grid" aria-label="Metric values by prefix length and refinement depth"></div>
             <div class="heatmap-legend" aria-hidden="true">
               <span>lower relative quality</span><span class="legend-ramp"></span><span>higher relative quality</span>
@@ -200,7 +213,7 @@
           <button type="button" data-result-dataset="ShapeNet" aria-pressed="true">ShapeNet</button>
           <button type="button" data-result-dataset="TRELLIS" aria-pressed="false">TRELLIS</button>
         </div>
-        <div class="table-responsive">
+        <div class="table-responsive" aria-label="Scrollable results table">
           <table class="results-table">
             <thead><tr><th>Method</th><th>Tokens</th><th>IoU <span>higher</span></th><th>CD <span>lower</span></th><th>F1 <span>higher</span></th></tr></thead>
             <tbody id="results-body"></tbody>
@@ -273,6 +286,6 @@
   </footer>
 
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
-<script src="app.js?v=media6"></script>
+<script src="app.js?v=media8"></script>
 </body>
 </html>

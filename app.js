@@ -441,25 +441,8 @@ function videoGroupControls(videos, controls) {
   setToggleLabel(false);
 }
 
-function renderDepthSelectors() {
-  const picker = document.getElementById("depth-sample-picker");
-  picker.replaceChildren(...depthSweepGroups.map((group, index) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.dataset.depthSample = String(index);
-    button.setAttribute("aria-pressed", String(index === 0));
-    button.innerHTML = `<strong>${group.label}</strong><span>${group.dataset}</span>`;
-    return button;
-  }));
-}
-
 function renderDepthSweep(index) {
   const group = depthSweepGroups[index];
-  document.querySelectorAll("[data-depth-sample]").forEach(button => {
-    button.setAttribute("aria-pressed", String(Number(button.dataset.depthSample) === index));
-  });
-  document.getElementById("depth-sample-name").textContent = group.label;
-  document.getElementById("depth-sample-config").textContent = "K = 2, shared decoder";
   const grid = document.getElementById("depth-video-grid");
   const videos = [];
   grid.replaceChildren(...[1, 3, 5].map(depth => {
@@ -471,7 +454,7 @@ function renderDepthSweep(index) {
     const video = videoSource(source.file, source.poster, `${group.label}, ${group.dataset}, reconstruction at L = ${depth}`);
     videos.push(video);
     const caption = document.createElement("figcaption");
-    caption.innerHTML = `<strong>L = ${depth}</strong><span>${depth === 1 ? "coarse structure" : depth === 3 ? "structure recovered" : "surface refined"}</span>`;
+    caption.innerHTML = `<strong>L = ${depth}</strong>`;
     figure.append(video, caption);
     return figure;
   }));
@@ -592,20 +575,6 @@ function bindControls() {
   document.querySelectorAll("[data-result-dataset]").forEach(button => {
     button.addEventListener("click", () => renderResults(button.dataset.resultDataset));
   });
-  document.querySelectorAll("[data-depth-sample]").forEach(button => {
-    button.addEventListener("click", () => {
-      depthSweepIndex = Number(button.dataset.depthSample);
-      renderDepthSweep(depthSweepIndex);
-    });
-  });
-  document.getElementById("depth-prev").addEventListener("click", () => {
-    depthSweepIndex = (depthSweepIndex + depthSweepGroups.length - 1) % depthSweepGroups.length;
-    renderDepthSweep(depthSweepIndex);
-  });
-  document.getElementById("depth-next").addEventListener("click", () => {
-    depthSweepIndex = (depthSweepIndex + 1) % depthSweepGroups.length;
-    renderDepthSweep(depthSweepIndex);
-  });
   document.querySelectorAll("[data-gallery-dataset]").forEach(button => {
     button.addEventListener("click", () => setGallery(button.dataset.galleryDataset, galleryState.token));
   });
@@ -615,7 +584,6 @@ function bindControls() {
 }
 
 async function initialize() {
-  renderDepthSelectors();
   bindControls();
   renderResults("ShapeNet");
   renderDepthSweep(depthSweepIndex);

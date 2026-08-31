@@ -2205,3 +2205,37 @@ video.media-error {
     grid-template-columns: 1fr;
   }
 }
+
+/* One-sample refinement: keep the synchronized views in a single full-width frame. */
+.refinement-heading {
+  grid-template-columns: 1fr;
+}
+
+.refinement-depth-layout {
+  display: block;
+}
+
+.refinement-video-panel {
+  width: 100%;
+  padding: clamp(18px, 2.4vw, 30px);
+}
+
+.refinement-depth-grid {
+  gap: clamp(12px, 1.6vw, 20px);
+}
+
+.refinement-depth-grid video {
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+}
+
+.refinement-depth-grid figcaption {
+  justify-content: center;
+  padding: 10px 12px 12px;
+}
+
+@media (max-width: 560px) {
+  .refinement-video-panel {
+    padding: 12px;
+  }
+}

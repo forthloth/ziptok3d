@@ -451,7 +451,7 @@ function renderDepthSweep(index) {
       file: mediaAsset("depth-sweep", group.key, `ziptok3d_k2_l${depth}`),
       poster: posterAsset("depth-sweep", group.key, `ziptok3d_k2_l${depth}`),
     };
-    const video = videoSource(source.file, source.poster, `${group.label}, ${group.dataset}, reconstruction at L = ${depth}`);
+    const video = videoSource(source.file, source.poster, `Refinement reconstruction at L = ${depth}`);
     videos.push(video);
     const caption = document.createElement("figcaption");
     caption.innerHTML = `<strong>L = ${depth}</strong>`;

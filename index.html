@@ -15,7 +15,7 @@
   <meta name="twitter:image" content="https://forthloth.github.io/ziptok3d/assets/headfig.png">
   <link rel="icon" type="image/png" href="assets/hero-poster-compact.png">
   <title>ZipTok3D: High-Fidelity 3D Tokenization with Compact Token Prefixes</title>
-<link rel="stylesheet" href="styles.css?v=media11">
+<link rel="stylesheet" href="styles.css?v=media12">
 </head>
 <body>
   <nav class="site-nav" aria-label="Primary navigation">
@@ -74,8 +74,8 @@
         </div>
       </div>
       <figure class="hero-figure hero-video-figure">
-        <video src="assets/media-supplementary.mp4" poster="assets/hero-poster.png" autoplay muted loop playsinline preload="metadata" aria-label="ZipTok3D overview video"></video>
-        <figcaption>ZipTok3D in motion: compact prefixes, shared refinement, and reconstructed 3D geometry.</figcaption>
+        <video data-hero-video data-src="assets/hero-refinement-compact.mp4" poster="assets/hero-poster-compact.png" muted loop playsinline preload="none" aria-label="ZipTok3D compact-prefix refinement video"></video>
+        <figcaption>Compact-prefix refinement in motion.</figcaption>
       </figure>
     </header>
 
@@ -101,7 +101,7 @@
       <div class="section-inner">
         <div class="section-heading explorer-heading">
           <div>
-            <p class="section-index">03 / Operating space</p>
+            <p class="section-index">02 / Operating space</p>
             <h2 id="explorer-title">Prefix length &times; refinement depth explorer</h2>
           </div>
           <div class="segmented" id="dataset-control" aria-label="Dataset">
@@ -148,7 +148,7 @@
         <div class="refinement-gallery-block" id="gallery">
           <div class="section-heading gallery-heading">
             <div>
-              <p class="section-index">04 / Progressive unfolding</p>
+              <p class="section-index">03 / Progressive unfolding</p>
               <h2 id="gallery-title">ZipTok3D reconstructions</h2>
             </div>
             <p>Visual comparisons at compact prefixes, followed by synchronized refinement trajectories.</p>
@@ -173,7 +173,6 @@
         <div class="refinement-process-block">
           <div class="section-heading refinement-heading">
             <div>
-              <p class="section-index">Progressive refinement</p>
               <h2 id="refinement-title">Shared computation unfolds the prefix</h2>
             </div>
             <p>One shape, three refinement depths, and synchronized playback make the geometry recovery visible.</p>
@@ -198,7 +197,7 @@
     <section class="resources-section" aria-labelledby="resources-title">
       <div class="section-inner resources-layout">
         <div>
-          <p class="section-index">07 / Resources</p>
+          <p class="section-index">04 / Resources</p>
           <h2 id="resources-title">Paper, diagnostics, and implementation</h2>
         </div>
         <div class="resource-links">
@@ -219,6 +218,6 @@
   </footer>
 
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
-<script src="app.js?v=media11"></script>
+<script src="app.js?v=media12"></script>
 </body>
 </html>

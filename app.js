@@ -15,7 +15,7 @@ const explorerState = {
 };
 
 const metricData = { ShapeNet: {}, TRELLIS: {} };
-const ASSET_VERSION = "media8";
+const ASSET_VERSION = "media9";
 
 let lazyVideoObserver;
 
@@ -26,10 +26,20 @@ function loadVideo(video) {
   video.load();
 }
 
+function releaseVideo(video) {
+  if (video.dataset.src) return;
+  const source = video.currentSrc || video.src;
+  if (!source) return;
+  video.pause();
+  video.dataset.src = source;
+  video.removeAttribute("src");
+  video.load();
+}
+
 function observeVideo(video) {
   if (!("IntersectionObserver" in window)) {
     loadVideo(video);
-    video.play().catch(() => {});
+    if (video.dataset.autoPlay === "true") video.play().catch(() => {});
     return;
   }
   if (!lazyVideoObserver) {
@@ -42,12 +52,13 @@ function observeVideo(video) {
         }
         if (entry.isIntersecting) {
           loadVideo(target);
-          target.play().catch(() => {});
+          if (target.dataset.autoPlay === "true") target.play().catch(() => {});
         } else {
           target.pause();
+          if (target.dataset.releaseOffscreen === "true") releaseVideo(target);
         }
       });
-    }, { rootMargin: "240px 0px" });
+    }, { rootMargin: "80px 0px", threshold: 0.15 });
   }
   lazyVideoObserver.observe(video);
 }
@@ -292,13 +303,14 @@ function videoSource(file, poster, label) {
   const video = document.createElement("video");
   video.dataset.src = assetUrl(file);
   video.poster = assetUrl(poster);
-  video.autoplay = true;
+  video.autoplay = false;
   video.muted = true;
   video.loop = true;
   video.controls = true;
   video.playsInline = true;
-  video.preload = "metadata";
-  video.dataset.pauseOffscreen = "true";
+  video.preload = "none";
+  video.dataset.autoPlay = "false";
+  video.dataset.releaseOffscreen = "true";
   video.setAttribute("aria-label", label);
   video.addEventListener("error", () => video.classList.add("media-error"), { once: true });
   observeVideo(video);
@@ -317,6 +329,7 @@ function commandButton(id, label, icon) {
 function videoGroupControls(videos, controls) {
   let commandLock = false;
   let masterVideo = videos[0];
+  let syncFrame = null;
 
   const setToggleLabel = playing => {
     if (!controls.toggle) return;
@@ -331,21 +344,38 @@ function videoGroupControls(videos, controls) {
     controls.status.textContent = `${elapsed}s / ${duration}s`;
   };
 
-  const playAll = () => {
+  const alignVideos = () => {
+    syncFrame = null;
+    if (!masterVideo || masterVideo.paused || masterVideo.readyState < 2) return;
+    videos.forEach(video => {
+      if (video === masterVideo || video.readyState < 2 || video.seeking) return;
+      if (Math.abs(video.currentTime - masterVideo.currentTime) > 0.2) {
+        video.currentTime = masterVideo.currentTime;
+      }
+    });
+  };
+
+  const requestAlignment = () => {
+    if (syncFrame === null) syncFrame = window.requestAnimationFrame(alignVideos);
+  };
+
+  const playAll = async source => {
+    if (source) masterVideo = source;
     commandLock = true;
     videos.forEach(video => {
       loadVideo(video);
-      video.play().catch(() => {});
     });
+    await Promise.allSettled(videos.map(video => video.play().catch(() => {})));
     setToggleLabel(true);
-    window.setTimeout(() => { commandLock = false; }, 300);
+    commandLock = false;
+    requestAlignment();
   };
 
   const pauseAll = () => {
     commandLock = true;
     videos.forEach(video => video.pause());
     setToggleLabel(false);
-    window.setTimeout(() => { commandLock = false; }, 300);
+    window.setTimeout(() => { commandLock = false; }, 120);
   };
 
   const seekAll = delta => {
@@ -355,28 +385,24 @@ function videoGroupControls(videos, controls) {
       : current + delta;
     const nextTime = Math.max(0, Math.min(duration, current + delta));
     commandLock = true;
-    videos.forEach(video => { video.currentTime = nextTime; });
+    videos.forEach(video => {
+      loadVideo(video);
+      if (video.readyState > 0) video.currentTime = nextTime;
+    });
     updateTime();
-    window.setTimeout(() => { commandLock = false; }, 100);
+    window.setTimeout(() => { commandLock = false; }, 120);
   };
 
   videos.forEach(video => {
     video.addEventListener("play", () => {
-      masterVideo = video;
-      if (!commandLock) playAll();
+      if (!commandLock) playAll(video);
     });
     video.addEventListener("pause", () => {
       if (!commandLock) pauseAll();
     });
     video.addEventListener("timeupdate", () => {
-      if (video === masterVideo && !commandLock) {
-        videos.forEach(other => {
-          if (other !== video && Math.abs(other.currentTime - video.currentTime) > 0.08) {
-            other.currentTime = video.currentTime;
-          }
-        });
-      }
       updateTime();
+      if (video === masterVideo && !commandLock) requestAlignment();
     });
   });
 
@@ -531,6 +557,12 @@ function bindControls() {
 
 async function initialize() {
   bindControls();
+  const heroVideo = document.querySelector("[data-hero-video]");
+  if (heroVideo) {
+    heroVideo.dataset.autoPlay = "true";
+    heroVideo.dataset.releaseOffscreen = "false";
+    observeVideo(heroVideo);
+  }
   renderDepthSweep(depthSweepIndex);
   setGallery("all", "all");
   if (window.lucide) window.lucide.createIcons();

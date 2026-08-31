@@ -56,27 +56,6 @@ function assetUrl(path) {
   return `${path}?v=${ASSET_VERSION}`;
 }
 
-const results = {
-  ShapeNet: [
-    { method: "3DILG", tokens: 512, iou: 95.9, cd: 0.013, f1: 98.0 },
-    { method: "VecSet", tokens: 512, iou: 96.3, cd: 0.013, f1: 98.0 },
-    { method: "COD-VAE", tokens: 32, iou: 97.1, cd: 0.012, f1: 97.8 },
-    { method: "COD-VAE", tokens: 64, iou: 97.5, cd: 0.012, f1: 98.0 },
-    { method: "ZipTok3D", tokens: 1, iou: 96.8, cd: 0.012, f1: 97.8, ours: true },
-    { method: "ZipTok3D", tokens: 2, iou: 96.9, cd: 0.012, f1: 97.8, ours: true },
-    { method: "ZipTok3D", tokens: 4, iou: 96.9, cd: 0.012, f1: 97.9, ours: true },
-  ],
-  TRELLIS: [
-    { method: "VecSet", tokens: 512, iou: 71.47, cd: 0.0249, f1: 88.81 },
-    { method: "COD-VAE", tokens: 2, iou: 45.85, cd: 0.0674, f1: 53.95 },
-    { method: "COD-VAE", tokens: 32, iou: 75.25, cd: 0.0172, f1: 95.67 },
-    { method: "COD-VAE", tokens: 64, iou: 75.75, cd: 0.0168, f1: 95.98 },
-    { method: "ZipTok3D", tokens: 1, iou: 75.18, cd: 0.0168, f1: 95.81, ours: true },
-    { method: "ZipTok3D", tokens: 2, iou: 75.22, cd: 0.0167, f1: 95.86, ours: true },
-    { method: "ZipTok3D", tokens: 4, iou: 75.31, cd: 0.0166, f1: 95.92, ours: true },
-  ],
-};
-
 const refinementTrajectories = {
   lamp: {
     label: "Lamp",
@@ -307,36 +286,6 @@ function renderExplorer() {
   updateExplorerControls();
   renderHeatmap();
   renderSelection();
-}
-
-function renderResults(dataset) {
-  document.querySelectorAll("[data-result-dataset]").forEach(button => {
-    button.setAttribute("aria-pressed", String(button.dataset.resultDataset === dataset));
-  });
-  const rows = results[dataset];
-  const bestIou = Math.max(...rows.map(row => row.iou));
-  const bestCd = Math.min(...rows.map(row => row.cd));
-  const bestF1 = Math.max(...rows.map(row => row.f1));
-  const body = document.getElementById("results-body");
-  body.replaceChildren();
-  rows.forEach(row => {
-    const tr = document.createElement("tr");
-    if (row.ours) tr.className = "ours";
-    const cells = [
-      { value: row.method },
-      { value: row.tokens },
-      { value: dataset === "ShapeNet" ? row.iou.toFixed(1) : row.iou.toFixed(2), best: row.iou === bestIou },
-      { value: dataset === "ShapeNet" ? row.cd.toFixed(3) : row.cd.toFixed(4), best: row.cd === bestCd },
-      { value: dataset === "ShapeNet" ? row.f1.toFixed(1) : row.f1.toFixed(2), best: row.f1 === bestF1 },
-    ];
-    cells.forEach(cell => {
-      const td = document.createElement("td");
-      td.textContent = String(cell.value);
-      if (cell.best) td.className = "best";
-      tr.appendChild(td);
-    });
-    body.appendChild(tr);
-  });
 }
 
 function videoSource(file, poster, label) {
@@ -572,9 +521,6 @@ function bindControls() {
     explorerState.passes = Number(event.target.value);
     renderExplorer();
   });
-  document.querySelectorAll("[data-result-dataset]").forEach(button => {
-    button.addEventListener("click", () => renderResults(button.dataset.resultDataset));
-  });
   document.querySelectorAll("[data-gallery-dataset]").forEach(button => {
     button.addEventListener("click", () => setGallery(button.dataset.galleryDataset, galleryState.token));
   });
@@ -585,7 +531,6 @@ function bindControls() {
 
 async function initialize() {
   bindControls();
-  renderResults("ShapeNet");
   renderDepthSweep(depthSweepIndex);
   setGallery("all", "all");
   if (window.lucide) window.lucide.createIcons();

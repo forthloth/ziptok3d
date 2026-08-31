@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ZipTok3D: high-fidelity 3D tokenization with compact token prefixes and shared iterative decoding.">
+  <meta name="description" content="ZipTok3D: High-Fidelity 3D Tokenization with Compact Token Prefixes.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="ZipTok3D - Compact Token Prefixes for High-Fidelity 3D">
+  <meta property="og:title" content="ZipTok3D: High-Fidelity 3D Tokenization with Compact Token Prefixes">
   <meta property="og:description" content="High-fidelity 3D reconstruction from compact global-token prefixes with shared iterative decoding.">
   <meta property="og:url" content="https://forthloth.github.io/ziptok3d/">
   <meta property="og:image" content="https://forthloth.github.io/ziptok3d/assets/headfig.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ZipTok3D - Compact Token Prefixes for High-Fidelity 3D">
+  <meta name="twitter:title" content="ZipTok3D: High-Fidelity 3D Tokenization with Compact Token Prefixes">
   <meta name="twitter:description" content="High-fidelity 3D reconstruction from compact global-token prefixes with shared iterative decoding.">
   <meta name="twitter:image" content="https://forthloth.github.io/ziptok3d/assets/headfig.png">
   <link rel="icon" type="image/png" href="assets/hero-poster-compact.png">
-  <title>ZipTok3D - Compact Token Prefixes for High-Fidelity 3D</title>
-<link rel="stylesheet" href="styles.css?v=media9">
+  <title>ZipTok3D: High-Fidelity 3D Tokenization with Compact Token Prefixes</title>
+<link rel="stylesheet" href="styles.css?v=media11">
 </head>
 <body>
   <nav class="site-nav" aria-label="Primary navigation">
@@ -27,10 +27,10 @@
       <i data-lucide="menu" aria-hidden="true"></i>
     </button>
     <div class="nav-links" id="nav-links">
-      <a href="#method">Method</a>
+      <a href="#premise">Premise</a>
       <a href="#explorer">Explorer</a>
-      <a href="#results">Results</a>
-      <a href="#gallery">Gallery</a>
+      <a href="#refinement">Progressive unfolding</a>
+      <a href="#gallery">Reconstructions</a>
     </div>
 <a class="nav-paper" href="paper/ArXiv_ZipTok3D.pdf" target="_blank" rel="noreferrer">
       <i data-lucide="file-text" aria-hidden="true"></i>
@@ -41,30 +41,30 @@
   <main>
     <header class="hero" id="top">
       <div class="hero-content">
-        <p class="eyebrow">High-fidelity 3D tokenization</p>
-        <h1>ZipTok3D</h1>
+        <h1 id="hero-title"><span>ZipTok3D:</span> High-Fidelity 3D Tokenization with Compact Token Prefixes</h1>
         <p class="hero-deck">Compact global-token prefixes, unfolded through parameter-shared iterative decoding.</p>
         <p class="hero-authors" aria-label="Authors">
-          <a href="https://github.com/forthloth" target="_blank" rel="noreferrer">Mingda Lin</a><sup>*</sup><span aria-hidden="true">·</span>
-          <a href="https://lhmd.top/" target="_blank" rel="noreferrer">Weijie Wang</a><sup>*</sup><span aria-hidden="true">·</span>
-          <a href="https://steve-zeyu-zhang.github.io/" target="_blank" rel="noreferrer">Zeyu Zhang</a><span aria-hidden="true">·</span>
-          <a href="https://github.com/argsss" target="_blank" rel="noreferrer">Bowen Cui</a><span aria-hidden="true">·</span>
-          <a href="https://hexy.tech/" target="_blank" rel="noreferrer">Yefei He</a><span aria-hidden="true">·</span>
-          <a href="https://zhao-haoyu.github.io/" target="_blank" rel="noreferrer">Haoyu Zhao</a><span aria-hidden="true">·</span>
-          <a href="https://github.com/Yuanyu0" target="_blank" rel="noreferrer">Yuanyu He</a><span aria-hidden="true">·</span>
-          <a href="https://donydchen.github.io/" target="_blank" rel="noreferrer">Donny Y. Chen</a><span aria-hidden="true">·</span>
-          <a href="https://chenfeng1271.github.io/" target="_blank" rel="noreferrer">Feng Chen</a><sup>&dagger;</sup><span aria-hidden="true">·</span>
-          <a href="https://bohanzhuang.github.io/" target="_blank" rel="noreferrer">Bohan Zhuang</a><sup>&dagger;</sup>
-          <span class="author-note"><sup>*</sup> Equal contribution <span aria-hidden="true">·</span> <sup>&dagger;</sup> Corresponding authors</span>
+          <a href="https://github.com/forthloth" target="_blank" rel="noreferrer">Mingda Lin</a><sup>1,&dagger;</sup><span aria-hidden="true">·</span>
+          <a href="https://lhmd.top/" target="_blank" rel="noreferrer">Weijie Wang</a><sup>1,&dagger;,*</sup><span aria-hidden="true">·</span>
+          <a href="https://steve-zeyu-zhang.github.io/" target="_blank" rel="noreferrer">Zeyu Zhang</a><sup>1</sup><span aria-hidden="true">·</span>
+          <a href="https://alexandertsui.github.io/" target="_blank" rel="noreferrer">Bowen Cui</a><sup>1</sup><span aria-hidden="true">·</span>
+          <a href="https://hexy.tech/" target="_blank" rel="noreferrer">Yefei He</a><sup>1</sup><span aria-hidden="true">·</span>
+          <a href="https://zhao-haoyu.github.io/" target="_blank" rel="noreferrer">Haoyu Zhao</a><sup>1</sup><span aria-hidden="true">·</span>
+          <a href="https://github.com/Yuanyu0" target="_blank" rel="noreferrer">Yuanyu He</a><sup>1</sup><span aria-hidden="true">·</span>
+          <a href="https://donydchen.github.io/" target="_blank" rel="noreferrer">Donny Y. Chen</a><sup>2</sup><span aria-hidden="true">·</span>
+          <a href="https://chenfeng1271.github.io/" target="_blank" rel="noreferrer">Feng Chen</a><sup>3,*</sup><span aria-hidden="true">·</span>
+          <a href="https://bohanzhuang.github.io/" target="_blank" rel="noreferrer">Bohan Zhuang</a><sup>1</sup>
+          <span class="author-note"><sup>&dagger;</sup> Equal contribution <span aria-hidden="true">·</span> <sup>*</sup> Corresponding authors</span>
         </p>
+        <p class="hero-affiliations" aria-label="Affiliations"><sup>1</sup> ZIP Lab, Zhejiang University <span aria-hidden="true">·</span> <sup>2</sup> Monash University <span aria-hidden="true">·</span> <sup>3</sup> University of Adelaide</p>
         <div class="hero-actions">
 <a class="button button-primary" href="paper/ArXiv_ZipTok3D.pdf" target="_blank" rel="noreferrer">
             <i data-lucide="file-text" aria-hidden="true"></i>
             Read paper
           </a>
           <a class="button button-secondary" href="https://github.com/ziplab/ZipTok3D" target="_blank" rel="noreferrer">
-            <i data-lucide="layers-3" aria-hidden="true"></i>
-            Supplementary code
+            <i data-lucide="github" aria-hidden="true"></i>
+            Code
           </a>
         </div>
         <div class="hero-facts" aria-label="Headline results">
@@ -79,7 +79,7 @@
       </figure>
     </header>
 
-    <section class="thesis-band" aria-labelledby="thesis-title">
+    <section class="thesis-band" id="premise" aria-labelledby="thesis-title">
       <div class="section-inner thesis-grid">
         <p class="section-index">01 / Premise</p>
         <div>
@@ -95,24 +95,6 @@
         <img src="assets/headfig.png" alt="Comparison of Ground Truth, VecSet with 512 tokens, COD-VAE with 32 tokens, and ZipTok3D with one token and five refinement steps." loading="lazy">
         <figcaption>At the headline operating point, one ZipTok3D token approaches the reconstruction quality of a 32-token COD-VAE.</figcaption>
       </figure>
-    </section>
-
-    <section class="method-section" id="method" aria-labelledby="method-title">
-      <div class="section-inner">
-        <div class="section-heading">
-          <div>
-            <p class="section-index">02 / Method</p>
-            <h2 id="method-title">An ordered prefix, decoded repeatedly</h2>
-          </div>
-          <p>An ordered prefix is iteratively unfolded into triplane features before occupancy is queried.</p>
-        </div>
-
-        <div class="method-tool" aria-label="ZipTok3D method overview">
-          <div class="method-figure" aria-label="ZipTok3D method overview from input to occupancy output">
-            <img src="assets/mainfig.png" alt="ZipTok3D method overview: input surface points are encoded into an ordered latent bank, nested dropout keeps a prefix, triplane tokens are selected, a shared block refines the selected tokens for L steps, and an occupancy MLP produces the output.">
-          </div>
-        </div>
-      </div>
     </section>
 
     <section class="explorer-section" id="explorer" aria-labelledby="explorer-title">
@@ -163,10 +145,38 @@
 
     <section class="refinement-section" id="refinement" aria-labelledby="refinement-title">
       <div class="section-inner">
-        <div class="section-heading refinement-heading">
-          <div>
-            <p class="section-index">04 / Progressive unfolding</p>
-            <h2 id="refinement-title">Shared computation unfolds the prefix</h2>
+        <div class="refinement-gallery-block" id="gallery">
+          <div class="section-heading gallery-heading">
+            <div>
+              <p class="section-index">04 / Progressive unfolding</p>
+              <h2 id="gallery-title">ZipTok3D reconstructions</h2>
+            </div>
+            <p>Visual comparisons at compact prefixes, followed by synchronized refinement trajectories.</p>
+          </div>
+
+          <div class="gallery-controls">
+            <div class="segmented" aria-label="Reconstruction dataset filter">
+              <button type="button" data-gallery-dataset="all" aria-pressed="true">All datasets</button>
+              <button type="button" data-gallery-dataset="ShapeNet" aria-pressed="false">ShapeNet</button>
+              <button type="button" data-gallery-dataset="TRELLIS" aria-pressed="false">TRELLIS</button>
+            </div>
+            <div class="segmented" aria-label="Reconstruction token filter">
+              <button type="button" data-gallery-token="all" aria-pressed="true">All prefixes</button>
+              <button type="button" data-gallery-token="1" aria-pressed="false">K = 1</button>
+              <button type="button" data-gallery-token="4" aria-pressed="false">K = 4</button>
+            </div>
+          </div>
+          <p class="gallery-summary" id="gallery-summary">11 ZipTok3D reconstructions | ShapeNet + TRELLIS | L = 5.</p>
+          <div class="reconstruction-gallery" id="reconstruction-gallery" aria-live="polite"></div>
+        </div>
+
+        <div class="refinement-process-block">
+          <div class="section-heading refinement-heading">
+            <div>
+              <p class="section-index">Progressive refinement</p>
+              <h2 id="refinement-title">Shared computation unfolds the prefix</h2>
+            </div>
+            <p>One shape, three refinement depths, and synchronized playback make the geometry recovery visible.</p>
           </div>
         </div>
 
@@ -185,69 +195,6 @@
       </div>
     </section>
 
-    <section class="results-section" id="results" aria-labelledby="results-title">
-      <div class="section-inner">
-        <div class="section-heading">
-          <div>
-            <p class="section-index">05 / Evidence</p>
-            <h2 id="results-title">Tiny prefixes, competitive surfaces</h2>
-          </div>
-          <p>All ZipTok3D rows use the same selected checkpoint per dataset and five refinement passes. IoU and F1 are percentages; lower CD is better.</p>
-        </div>
-
-        <div class="result-switch segmented" id="result-dataset-control" aria-label="Results dataset">
-          <button type="button" data-result-dataset="ShapeNet" aria-pressed="true">ShapeNet</button>
-          <button type="button" data-result-dataset="TRELLIS" aria-pressed="false">TRELLIS</button>
-        </div>
-        <div class="table-responsive" aria-label="Scrollable results table">
-          <table class="results-table">
-            <thead><tr><th>Method</th><th>Tokens</th><th>IoU <span>higher</span></th><th>CD <span>lower</span></th><th>F1 <span>higher</span></th></tr></thead>
-            <tbody id="results-body"></tbody>
-          </table>
-        </div>
-
-        <div class="generation-band">
-          <div>
-            <p class="section-index">Class-conditioned generation</p>
-            <h3>A physical 2 x 32 causal prefix</h3>
-            <p>ZipTok3D-2 remains close to COD-VAE-32 on distribution metrics while improving latent sampling throughput from 46.02 to 50.62 samples/s.</p>
-          </div>
-          <div class="generation-measures" aria-label="ZipTok3D generation results">
-            <div><span>MMD-CD</span><strong>5.142</strong></div>
-            <div><span>COV-CD</span><strong>84.91%</strong></div>
-            <div><span>1-NNA-CD</span><strong>54.21%</strong></div>
-            <div><span>Full throughput</span><strong>36.64/s</strong></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="gallery-section" id="gallery" aria-labelledby="gallery-title">
-      <div class="section-inner">
-        <div class="section-heading gallery-heading">
-          <div>
-            <p class="section-index">06 / Reconstructions</p>
-            <h2 id="gallery-title">ZipTok3D reconstructions</h2>
-          </div>
-          <p>Each card is a ZipTok3D output from the fixed K = 1 or K = 4 evaluation sets. Use the filters to scan all available ShapeNet and TRELLIS examples.</p>
-        </div>
-        <div class="gallery-controls">
-          <div class="segmented" aria-label="Reconstruction dataset filter">
-            <button type="button" data-gallery-dataset="all" aria-pressed="true">All datasets</button>
-            <button type="button" data-gallery-dataset="ShapeNet" aria-pressed="false">ShapeNet</button>
-            <button type="button" data-gallery-dataset="TRELLIS" aria-pressed="false">TRELLIS</button>
-          </div>
-          <div class="segmented" aria-label="Reconstruction token filter">
-            <button type="button" data-gallery-token="all" aria-pressed="true">All prefixes</button>
-            <button type="button" data-gallery-token="1" aria-pressed="false">K = 1</button>
-            <button type="button" data-gallery-token="4" aria-pressed="false">K = 4</button>
-          </div>
-        </div>
-        <p class="gallery-summary" id="gallery-summary">11 ZipTok3D reconstructions | ShapeNet + TRELLIS | L = 5.</p>
-        <div class="reconstruction-gallery" id="reconstruction-gallery" aria-live="polite"></div>
-      </div>
-    </section>
-
     <section class="resources-section" aria-labelledby="resources-title">
       <div class="section-inner resources-layout">
         <div>
@@ -256,7 +203,7 @@
         </div>
         <div class="resource-links">
 <a href="paper/ArXiv_ZipTok3D.pdf" target="_blank" rel="noreferrer"><i data-lucide="file-text" aria-hidden="true"></i><span><strong>Main paper</strong><small>ArXiv technical report and primary results</small></span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
-<a href="https://github.com/ziplab/ZipTok3D" target="_blank" rel="noreferrer"><i data-lucide="layers-3" aria-hidden="true"></i><span><strong>Supplementary code</strong><small>Training, evaluation, and baseline implementations</small></span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+<a href="https://github.com/ziplab/ZipTok3D" target="_blank" rel="noreferrer"><i data-lucide="github" aria-hidden="true"></i><span><strong>Code repository</strong><small>Training, evaluation, and baseline implementations</small></span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
 <a href="paper/README.md" target="_blank" rel="noreferrer"><i data-lucide="code-2" aria-hidden="true"></i><span><strong>Project source</strong><small>ArXiv project README and source tree</small></span><i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
         </div>
       </div>
@@ -272,6 +219,6 @@
   </footer>
 
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
-<script src="app.js?v=media10"></script>
+<script src="app.js?v=media11"></script>
 </body>
 </html>

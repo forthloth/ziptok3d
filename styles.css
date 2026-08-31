@@ -2239,3 +2239,105 @@ video.media-error {
     padding: 12px;
   }
 }
+
+/* Center the paper-style hero while keeping the title readable at every width. */
+.hero-content {
+  text-align: center;
+}
+
+.hero h1 {
+  max-width: 1000px;
+  margin: 0 auto 18px;
+  font-size: clamp(44px, 5.8vw, 74px);
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.hero h1 span {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--mint-deep);
+  font-size: 1.02em;
+  line-height: 1;
+}
+
+.hero-deck,
+.hero-authors {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.hero-authors {
+  margin-bottom: 5px;
+}
+
+.hero-authors sup {
+  margin-left: 1px;
+  color: var(--mint-deep);
+  font-size: 0.72em;
+  vertical-align: super;
+}
+
+.hero-affiliations {
+  max-width: 1000px;
+  margin: 0 auto 22px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.hero-affiliations sup {
+  margin-right: 1px;
+  color: var(--mint-deep);
+  font-size: 0.78em;
+  vertical-align: super;
+}
+
+.hero-actions,
+.hero-facts {
+  justify-content: center;
+}
+
+.hero-facts div {
+  text-align: left;
+}
+
+/* Reconstructions lead the visual section; the refinement trajectory follows it. */
+.refinement-gallery-block {
+  padding-bottom: clamp(46px, 7vw, 88px);
+  border-bottom: 1px solid var(--line);
+}
+
+.refinement-gallery-block .gallery-heading {
+  margin-bottom: 26px;
+}
+
+.refinement-heading {
+  grid-template-columns: 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.refinement-process-block {
+  padding-top: clamp(48px, 7vw, 84px);
+}
+
+.refinement-process-block .section-heading {
+  margin-bottom: 30px;
+}
+
+@media (max-width: 820px) {
+  .hero h1 {
+    max-width: 700px;
+    font-size: clamp(34px, 8vw, 58px);
+  }
+
+  .hero h1 span {
+    margin-bottom: 8px;
+  }
+
+  .hero-affiliations {
+    margin-bottom: 18px;
+    font-size: 11px;
+  }
+}

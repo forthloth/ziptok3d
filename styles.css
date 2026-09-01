@@ -369,7 +369,7 @@ footer svg {
 
 .thesis-grid {
   display: grid;
-  grid-template-columns: 150px minmax(0, 1fr) 220px;
+  grid-template-columns: minmax(0, 1fr) 220px;
   gap: 42px;
   align-items: start;
 }
@@ -1680,7 +1680,7 @@ video.media-error {
 @media (max-width: 1050px) {
   .nav-links { gap: 18px; }
   .hero h1 { font-size: 72px; }
-  .thesis-grid { grid-template-columns: 110px minmax(0, 1fr) 190px; gap: 26px; }
+  .thesis-grid { grid-template-columns: minmax(0, 1fr) 190px; gap: 26px; }
   .method-flow {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     row-gap: 20px;
@@ -1779,7 +1779,6 @@ video.media-error {
   .thesis-band, .method-section, .results-section, .gallery-section, .explorer-section { padding: 76px 0; }
   h2 { font-size: 37px; }
   .thesis-grid { grid-template-columns: 1fr; }
-  .thesis-grid > .section-index { margin-bottom: -16px; }
   .thesis-proof { max-width: 420px; padding: 24px 0 0; border-top: 1px solid var(--line); border-left: 0; }
   .section-heading { grid-template-columns: 1fr; gap: 22px; margin-bottom: 34px; }
   .section-heading > p { max-width: 600px; }

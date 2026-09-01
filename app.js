@@ -303,13 +303,13 @@ function videoSource(file, poster, label) {
   const video = document.createElement("video");
   video.dataset.src = assetUrl(file);
   video.poster = assetUrl(poster);
-  video.autoplay = false;
+  video.autoplay = true;
   video.muted = true;
   video.loop = true;
-  video.controls = true;
+  video.controls = false;
   video.playsInline = true;
   video.preload = "none";
-  video.dataset.autoPlay = "false";
+  video.dataset.autoPlay = "true";
   video.dataset.releaseOffscreen = "true";
   video.setAttribute("aria-label", label);
   video.addEventListener("error", () => video.classList.add("media-error"), { once: true });

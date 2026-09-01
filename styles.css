@@ -2053,46 +2053,6 @@ video.media-error {
   min-width: 0;
 }
 
-.video-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 7px;
-  margin-bottom: 16px;
-}
-
-.media-command {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 32px;
-  padding: 6px 9px;
-  color: var(--ink-soft);
-  background: #ffffff;
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  font-size: 10px;
-  white-space: nowrap;
-}
-
-.media-command:hover,
-.media-command:focus-visible {
-  color: var(--mint-deep);
-  border-color: #8db9a8;
-}
-
-.media-command svg {
-  width: 14px;
-  height: 14px;
-}
-
-.video-time {
-  margin-left: auto;
-  color: var(--ink-soft);
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: 10px;
-}
-
 .refinement-depth-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;

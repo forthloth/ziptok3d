@@ -317,32 +317,10 @@ function videoSource(file, poster, label) {
   return video;
 }
 
-function commandButton(id, label, icon) {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.id = id;
-  button.className = "media-command";
-  button.innerHTML = `<i data-lucide="${icon}" aria-hidden="true"></i><span>${label}</span>`;
-  return button;
-}
-
-function videoGroupControls(videos, controls) {
+function videoGroupControls(videos) {
   let commandLock = false;
   let masterVideo = videos[0];
   let syncFrame = null;
-
-  const setToggleLabel = playing => {
-    if (!controls.toggle) return;
-    controls.toggle.innerHTML = `<i data-lucide="${playing ? "pause" : "play"}" aria-hidden="true"></i><span>${playing ? "Pause all" : "Play all"}</span>`;
-    if (window.lucide) window.lucide.createIcons();
-  };
-
-  const updateTime = () => {
-    if (!controls.status || !masterVideo || !Number.isFinite(masterVideo.duration)) return;
-    const elapsed = masterVideo.currentTime.toFixed(1);
-    const duration = masterVideo.duration.toFixed(1);
-    controls.status.textContent = `${elapsed}s / ${duration}s`;
-  };
 
   const alignVideos = () => {
     syncFrame = null;
@@ -366,7 +344,6 @@ function videoGroupControls(videos, controls) {
       loadVideo(video);
     });
     await Promise.allSettled(videos.map(video => video.play().catch(() => {})));
-    setToggleLabel(true);
     commandLock = false;
     requestAlignment();
   };
@@ -374,22 +351,6 @@ function videoGroupControls(videos, controls) {
   const pauseAll = () => {
     commandLock = true;
     videos.forEach(video => video.pause());
-    setToggleLabel(false);
-    window.setTimeout(() => { commandLock = false; }, 120);
-  };
-
-  const seekAll = delta => {
-    const current = masterVideo?.currentTime || 0;
-    const duration = Number.isFinite(masterVideo?.duration) && masterVideo.duration > 0
-      ? masterVideo.duration
-      : current + delta;
-    const nextTime = Math.max(0, Math.min(duration, current + delta));
-    commandLock = true;
-    videos.forEach(video => {
-      loadVideo(video);
-      if (video.readyState > 0) video.currentTime = nextTime;
-    });
-    updateTime();
     window.setTimeout(() => { commandLock = false; }, 120);
   };
 
@@ -401,19 +362,9 @@ function videoGroupControls(videos, controls) {
       if (!commandLock) pauseAll();
     });
     video.addEventListener("timeupdate", () => {
-      updateTime();
       if (video === masterVideo && !commandLock) requestAlignment();
     });
   });
-
-  controls.toggle?.addEventListener("click", () => {
-    if (videos.some(video => video.paused)) playAll();
-    else pauseAll();
-  });
-  controls.back?.addEventListener("click", () => seekAll(-0.5));
-  controls.forward?.addEventListener("click", () => seekAll(0.5));
-  videos.forEach(video => video.addEventListener("loadedmetadata", updateTime, { once: true }));
-  setToggleLabel(false);
 }
 
 function renderDepthSweep(index) {
@@ -433,13 +384,7 @@ function renderDepthSweep(index) {
     figure.append(video, caption);
     return figure;
   }));
-  videoGroupControls(videos, {
-    toggle: document.getElementById("depth-play-toggle"),
-    back: document.getElementById("depth-seek-back"),
-    forward: document.getElementById("depth-seek-forward"),
-    status: document.getElementById("depth-time"),
-  });
-  if (window.lucide) window.lucide.createIcons();
+  videoGroupControls(videos);
 }
 
 function renderReconstructionSample(sample) {

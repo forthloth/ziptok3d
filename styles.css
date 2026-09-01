@@ -1323,10 +1323,15 @@ input[type="range"] {
 }
 
 /* Light, sample-first presentation for the qualitative sections. */
+.reconstruction-section,
 .refinement-section {
+  padding: 96px 0;
   color: var(--ink);
   background: var(--paper-bright);
   border-top: 1px solid var(--line);
+}
+
+.refinement-section {
   border-bottom: 1px solid var(--line);
 }
 
@@ -1826,6 +1831,7 @@ video.media-error {
   .heatmap { grid-template-columns: 36px repeat(8, 52px); min-width: 493px; }
   .heatmap-cell { min-height: 54px; font-size: 11px; }
   .selection-metrics { grid-template-columns: 1fr; }
+  .reconstruction-section,
   .refinement-section { padding: 72px 0; }
   .refinement-media video { aspect-ratio: 8 / 4; object-fit: cover; }
   .refinement-trajectory-panel { padding: 12px; }
@@ -2255,28 +2261,10 @@ video.media-error {
   text-align: left;
 }
 
-/* Reconstructions lead the visual section; the refinement trajectory follows it. */
-.refinement-gallery-block {
-  padding-bottom: clamp(46px, 7vw, 88px);
-  border-bottom: 1px solid var(--line);
-}
-
-.refinement-gallery-block .gallery-heading {
-  margin-bottom: 26px;
-}
-
 .refinement-heading {
   grid-template-columns: 1fr;
   gap: 18px;
   align-items: start;
-}
-
-.refinement-process-block {
-  padding-top: clamp(48px, 7vw, 84px);
-}
-
-.refinement-process-block .section-heading {
-  margin-bottom: 30px;
 }
 
 @media (max-width: 820px) {

@@ -480,24 +480,11 @@ function renderReconstructionSample(sample) {
   return article;
 }
 
-const galleryState = { dataset: "all", token: "all" };
 let depthSweepIndex = 0;
 
-function setGallery(dataset = galleryState.dataset, token = galleryState.token) {
-  galleryState.dataset = dataset;
-  galleryState.token = token;
-  document.querySelectorAll("[data-gallery-dataset]").forEach(button => {
-    button.setAttribute("aria-pressed", String(button.dataset.galleryDataset === dataset));
-  });
-  document.querySelectorAll("[data-gallery-token]").forEach(button => {
-    button.setAttribute("aria-pressed", String(button.dataset.galleryToken === token));
-  });
+function setGallery() {
   const gallery = document.getElementById("reconstruction-gallery");
-  const dynamicSamples = reconstructionSamples.filter(sample =>
-    (dataset === "all" || sample.dataset === dataset) &&
-    (token === "all" || String(sample.token) === token),
-  );
-  gallery.replaceChildren(...dynamicSamples.map(renderReconstructionSample));
+  gallery.replaceChildren(...reconstructionSamples.map(renderReconstructionSample));
 }
 
 function bindControls() {
@@ -545,12 +532,6 @@ function bindControls() {
     explorerState.passes = Number(event.target.value);
     renderExplorer();
   });
-  document.querySelectorAll("[data-gallery-dataset]").forEach(button => {
-    button.addEventListener("click", () => setGallery(button.dataset.galleryDataset, galleryState.token));
-  });
-  document.querySelectorAll("[data-gallery-token]").forEach(button => {
-    button.addEventListener("click", () => setGallery(galleryState.dataset, button.dataset.galleryToken));
-  });
 }
 
 async function initialize() {
@@ -562,7 +543,7 @@ async function initialize() {
     observeVideo(heroVideo);
   }
   renderDepthSweep(depthSweepIndex);
-  setGallery("all", "all");
+  setGallery();
   if (window.lucide) window.lucide.createIcons();
 
   try {

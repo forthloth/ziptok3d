@@ -498,8 +498,6 @@ function setGallery(dataset = galleryState.dataset, token = galleryState.token) 
     (token === "all" || String(sample.token) === token),
   );
   gallery.replaceChildren(...dynamicSamples.map(renderReconstructionSample));
-  document.getElementById("gallery-summary").textContent =
-    `${dynamicSamples.length} ZipTok3D reconstructions | ${dataset === "all" ? "ShapeNet + TRELLIS" : dataset}${token === "all" ? "" : ` | K = ${token}`} | L = 5.`;
 }
 
 function bindControls() {

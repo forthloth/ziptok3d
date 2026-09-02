@@ -15,7 +15,7 @@ const explorerState = {
 };
 
 const metricData = { ShapeNet: {}, TRELLIS: {} };
-const ASSET_VERSION = "media9";
+const ASSET_VERSION = "media16";
 
 let lazyVideoObserver;
 
@@ -61,6 +61,28 @@ function observeVideo(video) {
     }, { rootMargin: "80px 0px", threshold: 0.15 });
   }
   lazyVideoObserver.observe(video);
+}
+
+function bindHeroSoundToggle(video) {
+  const toggle = document.querySelector("[data-sound-toggle]");
+  if (!toggle) return;
+
+  const label = toggle.querySelector("[data-sound-label]");
+  const updateState = () => {
+    const soundOn = !video.muted;
+    toggle.setAttribute("aria-pressed", String(soundOn));
+    toggle.setAttribute("aria-label", soundOn ? "Mute demo sound" : "Turn demo sound on");
+    if (label) label.textContent = soundOn ? "Sound on" : "Sound off";
+  };
+
+  toggle.addEventListener("click", () => {
+    // A click also provides the user gesture needed to start audible playback.
+    loadVideo(video);
+    video.muted = !video.muted;
+    video.play().catch(() => {});
+    updateState();
+  });
+  updateState();
 }
 
 function assetUrl(path) {
@@ -485,6 +507,7 @@ async function initialize() {
   if (heroVideo) {
     heroVideo.dataset.autoPlay = "true";
     heroVideo.dataset.releaseOffscreen = "false";
+    bindHeroSoundToggle(heroVideo);
     observeVideo(heroVideo);
   }
   renderDepthSweep(depthSweepIndex);

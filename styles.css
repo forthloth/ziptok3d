@@ -1871,6 +1871,56 @@ video.media-error {
   box-shadow: 0 12px 32px rgba(22, 32, 32, 0.16);
 }
 
+.hero-video-figure {
+  position: relative;
+}
+
+.video-sound-toggle {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 7px 11px;
+  color: var(--white);
+  background: rgba(7, 16, 17, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  border-radius: 6px;
+  box-shadow: 0 5px 16px rgba(7, 16, 17, 0.24);
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.video-sound-toggle:hover,
+.video-sound-toggle:focus-visible {
+  background: rgba(8, 115, 99, 0.94);
+  border-color: rgba(255, 255, 255, 0.72);
+}
+
+.video-sound-toggle svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+
+.video-sound-toggle .sound-icon-on {
+  display: none;
+}
+
+.video-sound-toggle[aria-pressed="true"] .sound-icon-off {
+  display: none;
+}
+
+.video-sound-toggle[aria-pressed="true"] .sound-icon-on {
+  display: inline-flex;
+}
+
 .premise-figure {
   width: min(100%, 1040px);
   margin: 42px auto 0;

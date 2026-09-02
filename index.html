@@ -13,9 +13,9 @@
   <meta name="twitter:title" content="ZipTok3D: High-Fidelity 3D Tokenization with Compact Token Prefixes">
   <meta name="twitter:description" content="High-fidelity 3D reconstruction from compact global-token prefixes with shared iterative decoding.">
   <meta name="twitter:image" content="https://forthloth.github.io/ziptok3d/assets/headfig.png">
-  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="icon" type="image/png" href="assets/favicon-transparent.png?v=media16">
   <title>ZipTok3D: High-Fidelity 3D Tokenization with Compact Token Prefixes</title>
-<link rel="stylesheet" href="styles.css?v=media13">
+<link rel="stylesheet" href="styles.css?v=media16">
 </head>
 <body>
   <nav class="site-nav" aria-label="Primary navigation">
@@ -44,7 +44,7 @@
         <h1 id="hero-title"><span>ZipTok3D:</span> High-Fidelity 3D Tokenization with Compact Token Prefixes</h1>
         <p class="hero-authors" aria-label="Authors">
           <a href="https://github.com/forthloth" target="_blank" rel="noreferrer">Mingda Lin</a><sup>1,&dagger;</sup><span aria-hidden="true">·</span>
-          <a href="https://lhmd.top/" target="_blank" rel="noreferrer">Weijie Wang</a><sup>1,&dagger;,*</sup><span aria-hidden="true">·</span>
+          <a href="https://lhmd.top/" target="_blank" rel="noreferrer">Weijie Wang</a><sup>1,&dagger;*</sup><span aria-hidden="true">·</span>
           <a href="https://steve-zeyu-zhang.github.io/" target="_blank" rel="noreferrer">Zeyu Zhang</a><sup>1</sup><span aria-hidden="true">·</span>
           <a href="https://alexandertsui.github.io/" target="_blank" rel="noreferrer">Bowen Cui</a><sup>1</sup><span aria-hidden="true">·</span>
           <a href="https://hexy.tech/" target="_blank" rel="noreferrer">Yefei He</a><sup>1</sup><span aria-hidden="true">·</span>
@@ -55,7 +55,7 @@
           <a href="https://bohanzhuang.github.io/" target="_blank" rel="noreferrer">Bohan Zhuang</a><sup>1</sup>
           <span class="author-note"><sup>&dagger;</sup> Equal contribution <span aria-hidden="true">·</span> <sup>*</sup> Corresponding authors</span>
         </p>
-        <p class="hero-affiliations" aria-label="Affiliations"><sup>1</sup> ZIP Lab, Zhejiang University <span aria-hidden="true">·</span> <sup>2</sup> Monash University <span aria-hidden="true">·</span> <sup>3</sup> University of Adelaide</p>
+        <p class="hero-affiliations" aria-label="Affiliations"><sup>1</sup> Zhejiang University <span aria-hidden="true">·</span> <sup>2</sup> Monash University <span aria-hidden="true">·</span> <sup>3</sup> University of Adelaide</p>
         <div class="hero-actions">
 <a class="button button-primary" href="paper/ArXiv_ZipTok3D.pdf" target="_blank" rel="noreferrer">
             <i data-lucide="file-text" aria-hidden="true"></i>
@@ -73,7 +73,12 @@
         </div>
       </div>
       <figure class="hero-figure hero-video-figure">
-        <video data-hero-video data-src="assets/ziptok3d-demo.mp4" poster="assets/hero-poster-compact.png" autoplay muted loop playsinline preload="none" aria-label="ZipTok3D compact-prefix refinement video"></video>
+        <video data-hero-video data-src="assets/ziptok3d-demo-audio.mp4" poster="assets/hero-poster-compact.png" autoplay muted loop playsinline preload="none" aria-label="ZipTok3D compact-prefix refinement video"></video>
+        <button class="video-sound-toggle" type="button" data-sound-toggle aria-pressed="false" aria-label="Turn demo sound on">
+          <span class="sound-icon sound-icon-off" aria-hidden="true"><i data-lucide="volume-x"></i></span>
+          <span class="sound-icon sound-icon-on" aria-hidden="true"><i data-lucide="volume-2"></i></span>
+          <span data-sound-label>Sound off</span>
+        </button>
       </figure>
     </header>
 
@@ -189,6 +194,6 @@
   </footer>
 
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
-<script src="app.js?v=media14"></script>
+<script src="app.js?v=media16"></script>
 </body>
 </html>
